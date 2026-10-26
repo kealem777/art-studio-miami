@@ -15,6 +15,7 @@ import {
 import { MASTERCLASSES_DATA } from '../data/mockData';
 import { Masterclass } from '../types';
 import { useCart } from '../context/CartContext';
+import { getAssetUrl } from '../utils/assets';
 
 export const MasterclassesPage: React.FC = () => {
   const { showToast } = useCart();
@@ -95,9 +96,12 @@ export const MasterclassesPage: React.FC = () => {
                 {/* Photo & Badges */}
                 <div className="relative h-64 overflow-hidden bg-sky-100">
                   <img
-                    src={item.imageUrl}
+                    src={getAssetUrl(item.imageUrl)}
                     alt={item.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = getAssetUrl('covers/cover1.jpg');
+                    }}
                   />
                   <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
                     <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-sky-800 text-xs font-bold shadow-md">

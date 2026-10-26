@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, ArrowRight, Award, Palette, ExternalLink } from 'lucide-react';
 import { ARTISTS_DATA } from '../data/mockData';
+import { useLanguage } from '../context/LanguageContext';
+import { getAssetUrl } from '../utils/assets';
 
 export const ArtistsPage: React.FC = () => {
   return (
@@ -34,9 +36,12 @@ export const ArtistsPage: React.FC = () => {
               <div>
                 <div className="relative h-44 overflow-hidden bg-sky-100">
                   <img
-                    src={artist.coverImage}
+                    src={getAssetUrl(artist.coverImage)}
                     alt={artist.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = getAssetUrl('covers/cover1.jpg');
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
                   

@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import { ARTISTS_DATA, ARTWORKS_DATA } from '../data/mockData';
 import { ArtworkCard } from '../components/common/ArtworkCard';
+import { useLanguage } from '../context/LanguageContext';
+import { getAssetUrl } from '../utils/assets';
 
 export const ArtistDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -53,9 +55,12 @@ export const ArtistDetailPage: React.FC = () => {
           {/* Cover photo */}
           <div className="h-64 md:h-80 w-full relative">
             <img
-              src={artist.coverImage}
+              src={getAssetUrl(artist.coverImage)}
               alt={artist.name}
               className="w-full h-full object-cover opacity-80"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = getAssetUrl('covers/cover1.jpg');
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
           </div>

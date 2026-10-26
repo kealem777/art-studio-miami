@@ -19,6 +19,8 @@ import {
 import { ARTWORKS_DATA, INTERIOR_ROOMS } from '../data/mockData';
 import { Artwork, InteriorRoom, ArtStyle } from '../types';
 import { useCart } from '../context/CartContext';
+import { useLanguage } from '../context/LanguageContext';
+import { getAssetUrl } from '../utils/assets';
 
 type FrameType = 'none' | 'thin-black' | 'gold-brass' | 'natural-oak' | 'white-wood';
 
@@ -28,6 +30,7 @@ export const InteriorMatchPage: React.FC = () => {
   const initialStyle = searchParams.get('style') as ArtStyle | null;
 
   const { addToCart, showToast } = useCart();
+  const { language, t } = useLanguage();
 
   // Selected Room & Custom Room
   const [selectedRoom, setSelectedRoom] = useState<InteriorRoom>(() => {
@@ -261,9 +264,12 @@ export const InteriorMatchPage: React.FC = () => {
             >
               <div className="relative bg-white shadow-2xl">
                 <img
-                  src={selectedArtwork.imageUrl}
+                  src={getAssetUrl(selectedArtwork.imageUrl)}
                   alt={selectedArtwork.title}
                   className="max-h-[220px] sm:max-h-[300px] md:max-h-[360px] w-auto object-contain block pointer-events-none"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = getAssetUrl('covers/cover1.jpg');
+                  }}
                 />
 
                 {/* Subtle Realistic Canvas Texture & Lighting overlay */}
@@ -420,9 +426,12 @@ export const InteriorMatchPage: React.FC = () => {
               >
                 <div className="w-full aspect-[4/5] rounded-xl overflow-hidden mb-2 relative bg-sky-50">
                   <img
-                    src={art.imageUrl}
+                    src={getAssetUrl(art.imageUrl)}
                     alt={art.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = getAssetUrl('covers/cover1.jpg');
+                    }}
                   />
                   {isCurrent && (
                     <div className="absolute inset-0 bg-sky-600/20 backdrop-blur-[1px] flex items-center justify-center">

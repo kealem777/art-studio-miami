@@ -12,8 +12,10 @@ import {
   ArrowRight,
   Clock
 } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const Footer: React.FC = () => {
+  const { language, t } = useLanguage();
   return (
     <footer className="bg-gradient-to-b from-sky-50/70 via-slate-900 to-slate-950 text-slate-300 pt-20 pb-12 border-t border-sky-100">
       <div className="max-w-7xl mx-auto px-6">
@@ -72,11 +74,14 @@ export const Footer: React.FC = () => {
                 <Palette className="w-5 h-5" />
               </div>
               <div>
-                <span className="font-serif tracking-[0.18em] text-lg font-bold text-white uppercase block">
-                  Miami Art Studio
+                <span className="font-serif tracking-[0.16em] text-lg font-black text-white uppercase block">
+                  {t('brandName')}
                 </span>
-                <span className="text-[10px] tracking-[0.2em] text-sky-400 uppercase font-medium">
-                  Art Deco & Modern Gallery
+                <span className="text-xs font-serif italic text-amber-300 font-bold block">
+                  {t('authorSignature')}
+                </span>
+                <span className="text-[10px] tracking-[0.2em] text-sky-400 uppercase font-bold">
+                  {t('galleryMarketplace')}
                 </span>
               </div>
             </Link>

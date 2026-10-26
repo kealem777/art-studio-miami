@@ -11,6 +11,8 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { useLanguage } from '../../context/LanguageContext';
+import { getAssetUrl } from '../../utils/assets';
 
 export const QuickViewModal: React.FC = () => {
   const { quickViewArtwork, setQuickViewArtwork, addToCart, toggleFavorite, isFavorite } = useCart();
@@ -46,9 +48,12 @@ export const QuickViewModal: React.FC = () => {
         <div className="md:w-1/2 bg-sky-50/50 p-6 flex flex-col items-center justify-center relative group min-h-[360px] md:min-h-[500px]">
           <div className="relative shadow-2xl rounded-xl overflow-hidden border-4 border-white">
             <img
-              src={quickViewArtwork.imageUrl}
+              src={getAssetUrl(quickViewArtwork.imageUrl)}
               alt={quickViewArtwork.title}
               className="max-h-[420px] w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = getAssetUrl('covers/cover1.jpg');
+              }}
             />
           </div>
 

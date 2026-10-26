@@ -12,6 +12,8 @@ import {
   Tag
 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { useLanguage } from '../../context/LanguageContext';
+import { getAssetUrl } from '../../utils/assets';
 
 export const CartDrawer: React.FC = () => {
   const { 
@@ -144,9 +146,12 @@ export const CartDrawer: React.FC = () => {
                       className="flex gap-4 p-3 rounded-2xl bg-sky-50/40 border border-sky-100/80 hover:bg-sky-50/70 transition-colors"
                     >
                       <img
-                        src={item.artwork.imageUrl}
+                        src={getAssetUrl(item.artwork.imageUrl)}
                         alt={item.artwork.title}
                         className="w-20 h-24 object-cover rounded-xl shadow-sm border border-white flex-shrink-0"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = getAssetUrl('covers/cover1.jpg');
+                        }}
                       />
                       <div className="flex-1 min-w-0 flex flex-col justify-between">
                         <div>
