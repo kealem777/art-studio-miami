@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="35%" stop-color="#06b6d4" />
+      <stop offset="65%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#f0f9ff" />
+    </linearGradient>
+    <linearGradient id="goldFoil" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4af37" />
+      <stop offset="25%" stop-color="#fef08a" />
+      <stop offset="50%" stop-color="#eab308" />
+      <stop offset="75%" stop-color="#ca8a04" />
+      <stop offset="100%" stop-color="#854d0e" />
+    </linearGradient>
+    <linearGradient id="deepOcean" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="40%" stop-color="#0369a1" />
+      <stop offset="80%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="70%" cy="25%" r="50%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="0.9" />
+      <stop offset="40%" stop-color="#f59e0b" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0" />
+    </radialGradient>
+    <filter id="canvasTexture" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise" />
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.12 0" />
+      <feComposite in2="SourceGraphic" in="gl" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
+    </filter>
+  </defs>
+
+  <!-- Base Canvas Background -->
+  <rect width="1000" height="1300" fill="#f8fafc" />
+  <rect width="1000" height="1300" fill="url(#skyGrad)" opacity="0.95" />
+
+  <!-- Sun Glow -->
+  <circle cx="720" cy="340" r="320" fill="url(#sunGlow)" />
+
+  <!-- Layer 1: Broad Palette Knife Stroke (Deep Navy / Ocean Abyss) -->
+  <path d="M-50,650 C200,520 450,780 750,620 C880,560 980,680 1050,630 L1050,1350 L-50,1350 Z" fill="url(#deepOcean)" opacity="0.95" />
+
+  <!-- Layer 2: Turquoise Swell Wave -->
+  <path d="M-50,790 C180,680 400,920 680,780 C840,710 950,830 1050,770 L1050,1350 L-50,1350 Z" fill="#0284c7" opacity="0.85" />
+  <path d="M-50,880 C220,770 420,990 720,870 C880,810 970,920 1050,860 L1050,1350 L-50,1350 Z" fill="#06b6d4" opacity="0.85" />
+
+  <!-- Layer 3: Foam Crests (White Texture Paste) -->
+  <path d="M-30,640 Q250,560 480,740 T980,610" stroke="#ffffff" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.88" />
+  <path d="M50,710 Q320,630 550,820 T1020,690" stroke="#f0f9ff" stroke-width="16" stroke-linecap="round" fill="none" opacity="0.75" />
+  <path d="M-20,780 Q210,700 480,880 T950,760" stroke="#ffffff" stroke-width="22" stroke-linecap="round" fill="none" opacity="0.9" />
+
+  <!-- Layer 4: 24K Gold Foil Flakes / Veins (Miami Sunrise Accent) -->
+  <path d="M120,530 Q350,420 580,640 T920,510" stroke="url(#goldFoil)" stroke-width="18" stroke-linecap="round" fill="none" />
+  <path d="M80,680 Q280,610 520,790 T890,660" stroke="url(#goldFoil)" stroke-width="12" stroke-linecap="round" fill="none" />
+  <path d="M220,840 Q450,750 680,940 T1020,830" stroke="url(#goldFoil)" stroke-width="14" stroke-linecap="round" fill="none" />
+
+  <!-- Gold Splatters & Flecks -->
+  <circle cx="280" cy="460" r="14" fill="url(#goldFoil)" />
+  <circle cx="340" cy="490" r="8" fill="url(#goldFoil)" />
+  <circle cx="240" cy="520" r="6" fill="url(#goldFoil)" />
+  <circle cx="620" cy="580" r="16" fill="url(#goldFoil)" />
+  <circle cx="680" cy="550" r="10" fill="url(#goldFoil)" />
+  <circle cx="740" cy="620" r="8" fill="url(#goldFoil)" />
+  <circle cx="480" cy="720" r="12" fill="url(#goldFoil)" />
+  <circle cx="840" cy="690" r="15" fill="url(#goldFoil)" />
+
+  <!-- Deep Ocean Floor Gradient -->
+  <path d="M-50,1050 C300,980 600,1120 1050,1020 L1050,1350 L-50,1350 Z" fill="#090d16" opacity="0.9" />
+
+  <!-- Artist Signature in bottom right -->
+  <text x="820" y="1240" font-family="'Brush Script MT', cursive, serif" font-size="28" fill="#d4af37" font-weight="bold" opacity="0.85">Elena Rostova '25</text>
+
+  <!-- Fine Border Outline -->
+  <rect x="15" y="15" width="970" height="1270" stroke="rgba(255,255,255,0.4)" stroke-width="3" fill="none" />
+</svg>
