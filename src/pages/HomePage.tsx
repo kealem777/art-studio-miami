@@ -89,9 +89,12 @@ export const HomePage: React.FC = () => {
           <div className="relative w-full lg:w-1/2 flex items-center justify-center">
             <div className="relative w-full max-w-md sm:max-w-lg aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-sky-100 group">
               <img
-                src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=85"
+                src="./miami-hero-art.svg"
                 alt="Miami Ocean Mist Painting"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = './miami-hero-art.svg';
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
 

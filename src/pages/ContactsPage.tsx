@@ -79,16 +79,30 @@ export const ContactsPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-5 h-5" />
+                <div className="flex items-start gap-4 p-4 rounded-2xl bg-amber-50/70 border border-amber-200">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-slate-950 flex items-center justify-center flex-shrink-0 shadow-md shadow-amber-500/20">
+                    <Phone className="w-6 h-6 stroke-[2.5] text-white animate-phone-ring" />
                   </div>
-                  <div>
-                    <strong className="block text-slate-900 font-semibold">Телефон & Консьерж:</strong>
-                    <a href="tel:+13055552787" className="text-sky-700 hover:text-sky-900 font-medium">
+                  <div className="flex-1">
+                    <strong className="block text-slate-900 font-bold text-base">Телефон & Арт-Консьерж:</strong>
+                    <a href="tel:+13055552787" className="text-lg font-serif font-black text-slate-950 hover:text-sky-600 transition-colors block">
                       +1 (305) 555-ARTS (2787)
                     </a>
-                    <span className="text-xs text-slate-400 block">WhatsApp / Telegram для быстрой связи</span>
+                    <span className="text-xs text-slate-500 block mb-3">Звонки по США и международные консультации</span>
+
+                    {/* Bright WhatsApp Action Button */}
+                    <a
+                      href="https://wa.me/13055552787?text=Hello!%20I%20am%20interested%20in%20Miami%20Art%20Studio"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold transition-all shadow-md shadow-[#25D366]/30 animate-whatsapp-pulse"
+                    >
+                      <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.587 1.954.918 3.208.918 3.181 0 5.767-2.586 5.768-5.766.001-3.187-2.575-5.771-5.77-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.079-1.897-.442-1.615-.668-2.651-2.315-2.732-2.423-.081-.108-.654-.871-.654-1.661 0-.79.414-1.179.561-1.341.144-.162.316-.203.421-.203.106 0 .211.002.302.007.098.005.231-.037.36.274.133.32.454 1.108.495 1.189.041.081.069.176.014.284-.055.108-.083.176-.164.271-.081.095-.171.212-.245.284-.083.082-.169.17-.073.336.096.166.427.705.916 1.141.629.56 1.161.733 1.326.815.166.082.263.072.36-.041.097-.113.414-.482.525-.648.111-.166.222-.138.373-.082.152.056.969.457 1.135.54.166.082.277.123.318.192.041.068.041.399-.103.804z" />
+                        <path d="M12 2C6.477 2 2 6.477 2 12c0 1.891.527 3.662 1.447 5.178L2 22l4.981-1.398A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.063c-1.611 0-3.125-.461-4.417-1.258l-.317-.193-2.946.825.834-2.868-.211-.334A8.026 8.026 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8.063-8 8.063z" />
+                      </svg>
+                      <span>Чат в WhatsApp с куратором</span>
+                    </a>
                   </div>
                 </div>
 

@@ -46,6 +46,9 @@ export const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
             alt={artwork.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = './miami-hero-art.svg';
+            }}
           />
         </Link>
 

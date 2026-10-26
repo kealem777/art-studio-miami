@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { HashRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { LanguageProvider } from './context/LanguageContext';
 import { CartProvider, useCart } from './context/CartContext';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
@@ -45,35 +46,37 @@ const GlobalToast = () => {
 export function App() {
   return (
     <HashRouter>
-      <CartProvider>
-        <ScrollToTop />
-        <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800">
-          <Header />
+      <LanguageProvider>
+        <CartProvider>
+          <ScrollToTop />
+          <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800">
+            <Header />
 
-          {/* Main Viewport */}
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/gallery" element={<GalleryPage />} />
-              <Route path="/gallery/:id" element={<ArtworkDetailPage />} />
-              <Route path="/artists" element={<ArtistsPage />} />
-              <Route path="/artists/:slug" element={<ArtistDetailPage />} />
-              <Route path="/interior-match" element={<InteriorMatchPage />} />
-              <Route path="/masterclasses" element={<MasterclassesPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contacts" element={<ContactsPage />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </main>
+            {/* Main Viewport */}
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/gallery" element={<GalleryPage />} />
+                <Route path="/gallery/:id" element={<ArtworkDetailPage />} />
+                <Route path="/artists" element={<ArtistsPage />} />
+                <Route path="/artists/:slug" element={<ArtistDetailPage />} />
+                <Route path="/interior-match" element={<InteriorMatchPage />} />
+                <Route path="/masterclasses" element={<MasterclassesPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/contacts" element={<ContactsPage />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </main>
 
-          <Footer />
+            <Footer />
 
-          {/* Modals & Global Drawer */}
-          <CartDrawer />
-          <QuickViewModal />
-          <GlobalToast />
-        </div>
-      </CartProvider>
+            {/* Modals & Global Drawer */}
+            <CartDrawer />
+            <QuickViewModal />
+            <GlobalToast />
+          </div>
+        </CartProvider>
+      </LanguageProvider>
     </HashRouter>
   );
 }

@@ -132,7 +132,7 @@ export const ARTWORKS_DATA: Artwork[] = [
     medium: 'Oil on Canvas',
     style: 'Modern',
     year: 2025,
-    imageUrl: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: './miami-hero-art.svg',
     detailImages: [
       'https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=80',
       'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1000&q=80'
