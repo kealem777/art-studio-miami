@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { CartProvider, useCart } from './context/CartContext';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
@@ -44,7 +44,7 @@ const GlobalToast = () => {
 
 export function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <CartProvider>
         <ScrollToTop />
         <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800">
@@ -74,7 +74,7 @@ export function App() {
           <GlobalToast />
         </div>
       </CartProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
