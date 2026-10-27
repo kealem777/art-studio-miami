@@ -26,13 +26,13 @@ export const Footer: React.FC = () => {
             <div className="max-w-xl text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 border border-sky-400/30 text-sky-300 text-xs font-semibold mb-3">
                 <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                Закрытый клуб коллекционеров Майами
+                {t('collectorsClubTag')}
               </div>
               <h3 className="text-2xl md:text-3xl font-serif font-bold text-white mb-2">
-                Получайте закрытые превью новых коллекций
+                {t('collectorsClubTitle')}
               </h3>
               <p className="text-sm text-sky-100/80">
-                Ранний доступ к эксклюзивным картинам резидентов галереи, персональные приглашения на вернисажи в Wynwood и закрытые арт-вечера.
+                {t('collectorsClubDesc')}
               </p>
             </div>
 
@@ -40,26 +40,26 @@ export const Footer: React.FC = () => {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  alert('Благодарим за интерес! Вы включены в закрытый список коллекционеров Miami Art Studio.');
+                  alert(t('clubSuccessAlert'));
                 }}
                 className="flex flex-col sm:flex-row gap-2"
               >
                 <input
                   type="email"
                   required
-                  placeholder="Ваш e-mail (например: collector@luxury.com)"
+                  placeholder={t('emailPlaceholder')}
                   className="px-4 py-3.5 rounded-xl bg-white/10 border border-sky-300/30 text-white placeholder-sky-200/50 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 flex-1"
                 />
                 <button
                   type="submit"
                   className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-slate-950 font-semibold text-sm transition-all shadow-lg shadow-sky-500/25 flex items-center justify-center gap-2 group whitespace-nowrap"
                 >
-                  <span>Вступить</span>
+                  <span>{t('joinClubBtn')}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </form>
               <p className="text-[11px] text-sky-200/60 mt-2 text-center lg:text-left">
-                Без спама. Только высокое искусство и личные приглашения.
+                {t('noSpamNotice')}
               </p>
             </div>
           </div>
@@ -87,18 +87,18 @@ export const Footer: React.FC = () => {
             </Link>
 
             <p className="text-sm text-slate-400 leading-relaxed mb-6 max-w-sm">
-              Премиальная галерея современного искусства и творческое пространство в сердце района Wynwood, Майами. Оригинальные холсты музейного уровня, интерьерный арт-консалтинг и мастер-классы.
+              {t('footerAboutText')}
             </p>
 
             {/* Guarantees */}
             <div className="flex flex-col gap-2.5 text-xs text-slate-300">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-sky-400" />
-                <span>100% Сертификат подлинности с подписью автора</span>
+                <span>{t('certGuaranteed')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Truck className="w-4 h-4 text-sky-400" />
-                <span>Бережная доставка в спецбоксах по США и миру (FedEx / DHL)</span>
+                <span>{t('crateShipping')}</span>
               </div>
             </div>
           </div>
@@ -106,17 +106,17 @@ export const Footer: React.FC = () => {
           {/* Col 2: Navigation */}
           <div>
             <h4 className="text-white font-serif font-semibold text-sm tracking-wider uppercase mb-4 border-l-2 border-sky-400 pl-2.5">
-              Навигация
+              {t('footerNavTitle')}
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-400">
               <li>
                 <Link to="/gallery" className="hover:text-sky-400 transition-colors">
-                  Каталог картин
+                  {t('navCatalog')}
                 </Link>
               </li>
               <li>
                 <Link to="/interior-match" className="hover:text-sky-400 transition-colors flex items-center gap-1.5">
-                  <span>Примерка в интерьере</span>
+                  <span>{t('navFitting')}</span>
                   <span className="text-[10px] bg-sky-500/20 text-sky-300 px-1.5 py-0.2 rounded font-semibold">
                     3D
                   </span>
@@ -124,22 +124,22 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/artists" className="hover:text-sky-400 transition-colors">
-                  Резиденты студии
+                  {t('navArtists')}
                 </Link>
               </li>
               <li>
                 <Link to="/masterclasses" className="hover:text-sky-400 transition-colors">
-                  Мастер-классы
+                  {t('navMasterclasses')}
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="hover:text-sky-400 transition-colors">
-                  О галерее и кураторах
+                  {t('navAbout')}
                 </Link>
               </li>
               <li>
                 <Link to="/contacts" className="hover:text-sky-400 transition-colors">
-                  Контакты и локация
+                  {t('navContacts')}
                 </Link>
               </li>
             </ul>
@@ -148,7 +148,7 @@ export const Footer: React.FC = () => {
           {/* Col 3: Interior Styles */}
           <div>
             <h4 className="text-white font-serif font-semibold text-sm tracking-wider uppercase mb-4 border-l-2 border-sky-400 pl-2.5">
-              Стили интерьера
+              {t('footerStylesTitle')}
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-400">
               <li>
@@ -182,7 +182,7 @@ export const Footer: React.FC = () => {
           {/* Col 4: Studio Contacts */}
           <div>
             <h4 className="text-white font-serif font-semibold text-sm tracking-wider uppercase mb-4 border-l-2 border-sky-400 pl-2.5">
-              Галерея в Майами
+              {t('footerLocationTitle')}
             </h4>
             <div className="space-y-3 text-sm text-slate-400">
               <div className="flex items-start gap-2.5">
@@ -191,7 +191,7 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex items-center gap-2.5">
                 <Clock className="w-4 h-4 text-sky-400 flex-shrink-0" />
-                <span>Ежедневно с 10:00 до 22:00</span>
+                <span>{t('footerHoursVal')}</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-sky-400 flex-shrink-0" />
@@ -223,14 +223,14 @@ export const Footer: React.FC = () => {
         {/* Bottom Credits & Legal */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            © {new Date().getFullYear()} Miami Art Studio & Gallery. All rights reserved. Registered in Florida, USA.
+            © {new Date().getFullYear()} Miami Art Studio & Gallery. {t('allRightsReserved')}
           </div>
           <div className="flex items-center gap-6">
-            <span className="hover:text-slate-300 cursor-pointer">Политика конфиденциальности</span>
+            <span className="hover:text-slate-300 cursor-pointer">{t('privacyPolicy')}</span>
             <span>•</span>
-            <span className="hover:text-slate-300 cursor-pointer">Условия покупки и доставки</span>
+            <span className="hover:text-slate-300 cursor-pointer">{t('termsOfSale')}</span>
             <span>•</span>
-            <span className="hover:text-slate-300 cursor-pointer">Stripe Verified</span>
+            <span className="hover:text-slate-300 cursor-pointer">{t('stripeVerified')}</span>
           </div>
         </div>
       </div>

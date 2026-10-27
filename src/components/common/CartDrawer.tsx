@@ -25,6 +25,8 @@ export const CartDrawer: React.FC = () => {
     totalPrice, 
     clearCart 
   } = useCart();
+  const { language, t } = useLanguage();
+  const isRu = language === 'ru';
 
   const [promoCode, setPromoCode] = useState('');
   const [discountPercent, setDiscountPercent] = useState(0);
@@ -44,9 +46,9 @@ export const CartDrawer: React.FC = () => {
     e.preventDefault();
     if (promoCode.trim().toUpperCase() === 'MIAMI2025' || promoCode.trim().toUpperCase() === 'ART') {
       setDiscountPercent(10);
-      alert('Промокод применен: Скидка 10% на ваш заказ!');
+      alert(isRu ? 'Промокод применен: Скидка 10% на ваш заказ!' : 'Promo applied: 10% off your collection order!');
     } else {
-      alert('Неверный промокод. Попробуйте промокод MIAMI2025');
+      alert(isRu ? 'Неверный промокод. Попробуйте промокод MIAMI2025' : 'Invalid code. Try MIAMI2025');
     }
   };
 
@@ -79,8 +81,12 @@ export const CartDrawer: React.FC = () => {
                 <ShoppingBag className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-serif font-bold text-slate-900 text-lg">Корзина коллекции</h3>
-                <p className="text-xs text-sky-600">{items.length} полотен выбрано</p>
+                <h3 className="font-serif font-bold text-slate-900 text-lg">
+                  {t('cartTitleHeading')}
+                </h3>
+                <p className="text-xs text-sky-600">
+                  {items.length} {t('itemsSelected')}
+                </p>
               </div>
             </div>
             <button
@@ -102,10 +108,10 @@ export const CartDrawer: React.FC = () => {
                   <CheckCircle className="w-8 h-8" />
                 </div>
                 <h4 className="text-xl font-serif font-bold text-slate-900 mb-2">
-                  Заказ успешно оформлен!
+                  {t('orderSuccessTitle')}
                 </h4>
-                <p className="text-sm text-slate-600 mb-6 max-w-xs">
-                  Оплата через Stripe подтверждена. Наш арт-куратор свяжется с вами для согласования персональной доставки в Майами или по США.
+                <p className="text-sm text-slate-600 mb-6 max-w-xs font-medium">
+                  {t('orderSuccessDesc')}
                 </p>
                 <button
                   onClick={() => {
@@ -114,7 +120,7 @@ export const CartDrawer: React.FC = () => {
                   }}
                   className="px-6 py-2.5 rounded-xl bg-slate-900 text-white font-medium text-sm hover:bg-sky-600 transition-colors"
                 >
-                  Вернуться в галерею
+                  {isRu ? 'Вернуться в галерею' : 'Return to Gallery'}
                 </button>
               </div>
             ) : items.length === 0 ? (
@@ -123,17 +129,17 @@ export const CartDrawer: React.FC = () => {
                   <ShoppingBag className="w-8 h-8" />
                 </div>
                 <h4 className="text-lg font-serif font-semibold text-slate-900 mb-1">
-                  Ваша корзина пуста
+                  {t('cartEmptyTitle')}
                 </h4>
-                <p className="text-xs text-slate-500 mb-6 max-w-xs">
-                  Исследуйте нашу галерею авторских полотен или примерьте их на стене ваших апартаментов.
+                <p className="text-xs text-slate-500 mb-6 max-w-xs font-medium">
+                  {t('cartEmptyDesc')}
                 </p>
                 <Link
                   to="/gallery"
                   onClick={() => setIsCartOpen(false)}
                   className="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold text-sm shadow-md shadow-sky-500/20"
                 >
-                  Перейти в каталог
+                  {isRu ? 'Перейти в каталог' : 'Browse Originals'}
                 </Link>
               </div>
             ) : (
@@ -157,12 +163,12 @@ export const CartDrawer: React.FC = () => {
                         <div>
                           <div className="flex items-start justify-between gap-1">
                             <h5 className="font-serif font-bold text-slate-900 text-sm truncate">
-                              {item.artwork.title}
+                              {isRu ? (item.artwork.titleRu || item.artwork.title) : item.artwork.title}
                             </h5>
                             <button
                               onClick={() => removeFromCart(item.artwork.id)}
                               className="text-slate-400 hover:text-rose-500 p-1"
-                              title="Удалить"
+                              title={isRu ? 'Удалить' : 'Remove'}
                             >
                               <Trash2 className="w-4 h-4" />
                             </button>
@@ -202,7 +208,7 @@ export const CartDrawer: React.FC = () => {
                     <Tag className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                     <input
                       type="text"
-                      placeholder="Промокод (MIAMI2025)"
+                      placeholder={isRu ? 'Промокод (MIAMI2025)' : 'Promo code (MIAMI2025)'}
                       value={promoCode}
                       onChange={(e) => setPromoCode(e.target.value)}
                       className="w-full pl-9 pr-3 py-2 rounded-xl border border-sky-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
@@ -212,7 +218,7 @@ export const CartDrawer: React.FC = () => {
                     type="submit"
                     className="px-4 py-2 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-800 text-xs font-semibold transition-colors"
                   >
-                    Применить
+                    {isRu ? 'Применить' : 'Apply'}
                   </button>
                 </form>
 
@@ -223,18 +229,18 @@ export const CartDrawer: React.FC = () => {
                   className="w-full py-2.5 rounded-xl bg-white border border-sky-200 hover:border-sky-300 text-sky-700 text-xs font-semibold flex items-center justify-center gap-2 shadow-sm transition-colors"
                 >
                   <Eye className="w-4 h-4 text-sky-500" />
-                  <span>Примерить выбранные картины на стене</span>
+                  <span>{isRu ? 'Примерить выбранные картины на стене' : 'Preview Artworks in Virtual 3D Room'}</span>
                 </Link>
 
                 {/* Checkout simulation form */}
                 <form onSubmit={handlePayOrder} className="pt-4 border-t border-sky-100 space-y-3">
                   <h5 className="font-serif font-semibold text-sm text-slate-900">
-                    Быстрое оформление & Доставка
+                    {t('fastCheckoutTitle')}
                   </h5>
                   <input
                     type="text"
                     required
-                    placeholder="Имя и Фамилия"
+                    placeholder={isRu ? 'Имя и Фамилия' : 'Full Name'}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl border border-sky-100 text-xs text-slate-800 focus:ring-2 focus:ring-sky-300"
@@ -251,7 +257,7 @@ export const CartDrawer: React.FC = () => {
                     <input
                       type="tel"
                       required
-                      placeholder="Телефон (+1 ...)"
+                      placeholder={isRu ? 'Телефон (+1 ...)' : 'Phone (+1 ...)'}
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="w-full px-3 py-2 rounded-xl border border-sky-100 text-xs text-slate-800 focus:ring-2 focus:ring-sky-300"
@@ -260,7 +266,7 @@ export const CartDrawer: React.FC = () => {
                   <input
                     type="text"
                     required
-                    placeholder="Адрес доставки в США или мире"
+                    placeholder={isRu ? 'Адрес доставки в США или мире' : 'Delivery Address (US / Worldwide)'}
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl border border-sky-100 text-xs text-slate-800 focus:ring-2 focus:ring-sky-300"
@@ -269,21 +275,23 @@ export const CartDrawer: React.FC = () => {
                   {/* Summary */}
                   <div className="p-4 rounded-2xl bg-sky-50/60 border border-sky-100 space-y-2 text-xs">
                     <div className="flex justify-between text-slate-600">
-                      <span>Сумма полотен:</span>
+                      <span>{isRu ? 'Сумма полотен:' : 'Artworks Total:'}</span>
                       <span>${totalPrice.toLocaleString()} USD</span>
                     </div>
                     {discountPercent > 0 && (
                       <div className="flex justify-between text-emerald-600 font-semibold">
-                        <span>Скидка ({discountPercent}%):</span>
+                        <span>{isRu ? `Скидка (${discountPercent}%):` : `Promo Discount (${discountPercent}%):`}</span>
                         <span>-${Math.round((totalPrice * discountPercent) / 100).toLocaleString()} USD</span>
                       </div>
                     )}
                     <div className="flex justify-between text-slate-600">
-                      <span>Кураторская доставка:</span>
-                      <span className="text-emerald-600 font-medium">Бесплатно по Майами</span>
+                      <span>{isRu ? 'Кураторская доставка:' : 'White-Glove Delivery:'}</span>
+                      <span className="text-emerald-600 font-medium">
+                        {isRu ? 'Бесплатно по Майами & США' : 'Complimentary across Miami & US'}
+                      </span>
                     </div>
                     <div className="pt-2 border-t border-sky-200/60 flex justify-between text-slate-900 font-bold text-sm">
-                      <span>Итого к оплате:</span>
+                      <span>{isRu ? 'Итого к оплате:' : 'Total Amount:'}</span>
                       <span className="text-sky-700 font-serif text-base">${finalTotal.toLocaleString()} USD</span>
                     </div>
                   </div>
@@ -297,19 +305,19 @@ export const CartDrawer: React.FC = () => {
                     {isCheckingOut ? (
                       <div className="flex items-center gap-2">
                         <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Обработка Stripe Gateway...</span>
+                        <span>{isRu ? 'Обработка Stripe Gateway...' : 'Processing Stripe Gateway...'}</span>
                       </div>
                     ) : (
                       <>
                         <CreditCard className="w-4 h-4" />
-                        <span>Оплатить через Stripe (${finalTotal.toLocaleString()})</span>
+                        <span>{isRu ? `Оплатить через Stripe ($${finalTotal.toLocaleString()})` : `Pay with Stripe ($${finalTotal.toLocaleString()})`}</span>
                       </>
                     )}
                   </button>
 
                   <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 pt-1">
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Безопасная оплата 256-bit SSL • Stripe Verified Payments</span>
+                    <span>{t('stripeVerified')}</span>
                   </div>
                 </form>
               </>

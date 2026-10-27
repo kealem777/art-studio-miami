@@ -6,6 +6,9 @@ import { useLanguage } from '../context/LanguageContext';
 import { getAssetUrl } from '../utils/assets';
 
 export const ArtistsPage: React.FC = () => {
+  const { language, t } = useLanguage();
+  const isRu = language === 'ru';
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-50/60 via-white to-sky-50/30 text-slate-800 pb-24">
       {/* Header */}
@@ -13,13 +16,15 @@ export const ArtistsPage: React.FC = () => {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100/80 border border-sky-200 text-sky-800 text-xs font-semibold mb-3">
             <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-            Резиденты галереи Miami Art Studio
+            {isRu ? 'Резиденты галереи Miami Art Studio' : 'Miami Art Studio Resident Masters'}
           </div>
           <h1 className="text-3xl md:text-5xl font-serif font-bold text-slate-950 tracking-tight mb-4">
-            Художники студии
+            {isRu ? 'Художники студии' : 'Resident Artists'}
           </h1>
-          <p className="text-sm md:text-base text-slate-600 leading-relaxed">
-            Познакомьтесь с ведущими мастерами современной живописи, чьи работы украшают частные коллекции и пентхаусы в Майами, Нью-Йорке и Европе. Каждый автор обладает уникальным стилем и узнаваемым почерком.
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+            {isRu
+              ? 'Познакомьтесь с ведущими мастерами современной живописи, чьи работы украшают частные коллекции и пентхаусы в Майами, Нью-Йорке и Европе. Каждый автор обладает уникальным стилем и узнаваемым почерком.'
+              : 'Discover prominent contemporary masters whose original canvases elevate private collections and estates across Miami, New York, and Europe. Explore their personal marketplace cabinets.'}
           </p>
         </div>
       </section>
@@ -47,7 +52,7 @@ export const ArtistsPage: React.FC = () => {
                   
                   {/* Works count badge */}
                   <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-sky-800 text-xs font-bold shadow-sm">
-                    {artist.artworksCount} полотен
+                    {artist.artworksCount} {isRu ? 'полотен' : 'originals'}
                   </span>
                 </div>
 
@@ -77,7 +82,7 @@ export const ArtistsPage: React.FC = () => {
                     <p className="text-xs text-sky-700 font-semibold">{artist.title}</p>
                   </div>
 
-                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
+                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-3 font-medium">
                     {artist.bio}
                   </p>
 
@@ -99,7 +104,7 @@ export const ArtistsPage: React.FC = () => {
                   to={`/artists/${artist.slug}`}
                   className="px-4 py-2 rounded-xl bg-slate-900 group-hover:bg-sky-600 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm"
                 >
-                  <span>Кабинет</span>
+                  <span>{isRu ? 'Кабинет' : 'Cabinet'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>

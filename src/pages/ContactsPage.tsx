@@ -10,9 +10,13 @@ import {
   Car
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export const ContactsPage: React.FC = () => {
   const { showToast } = useCart();
+  const { language } = useLanguage();
+  const isRu = language === 'ru';
+
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -25,7 +29,9 @@ export const ContactsPage: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitted(true);
-    showToast('Ваше сообщение отправлено! Арт-куратор свяжется с вами в течение часа.');
+    showToast(isRu 
+      ? 'Ваше сообщение отправлено! Арт-куратор свяжется с вами в течение часа.' 
+      : 'Your inquiry has been sent! Our senior curator will reach out shortly.');
   };
 
   return (
@@ -35,13 +41,15 @@ export const ContactsPage: React.FC = () => {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100/80 border border-sky-200 text-sky-800 text-xs font-semibold mb-3">
             <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-            Галерея & Творческое пространство в Майами
+            {isRu ? 'Галерея & Творческое пространство в Майами' : 'Gallery & Creative Space in Miami'}
           </div>
           <h1 className="text-3xl md:text-5xl font-serif font-bold text-slate-950 tracking-tight mb-4">
-            Контакты & Визит в галерею
+            {isRu ? 'Контакты & Визит в галерею' : 'Contacts & Studio Visit'}
           </h1>
-          <p className="text-sm md:text-base text-slate-600 leading-relaxed">
-            Мы всегда рады гостям, коллекционерам и дизайнерам. Приходите на индивидуальный просмотр картин с бокалом шампанского в сердце арт-района Wynwood.
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+            {isRu
+              ? 'Мы всегда рады гостям, коллекционерам и дизайнерам. Приходите на индивидуальный просмотр картин с бокалом шампанского в сердце арт-района Wynwood.'
+              : 'We warmly welcome collectors, interior architects, and art lovers. Experience private viewings with chilled Champagne in the vibrant heart of Wynwood Art District.'}
           </p>
         </div>
       </section>
@@ -62,9 +70,13 @@ export const ContactsPage: React.FC = () => {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <strong className="block text-slate-900 font-semibold">Адрес в Майами:</strong>
+                    <strong className="block text-slate-900 font-semibold">
+                      {isRu ? 'Адрес в Майами:' : 'Miami Address:'}
+                    </strong>
                     <span className="text-slate-600">250 NW 24th St, Wynwood Art District, Miami, FL 33127</span>
-                    <span className="text-xs text-sky-600 block mt-0.5">Рядом с Wynwood Walls и Design District</span>
+                    <span className="text-xs text-sky-600 block mt-0.5">
+                      {isRu ? 'Рядом с Wynwood Walls и Design District' : 'Adjacent to Wynwood Walls & Miami Design District'}
+                    </span>
                   </div>
                 </div>
 
@@ -73,9 +85,17 @@ export const ContactsPage: React.FC = () => {
                     <Clock className="w-5 h-5" />
                   </div>
                   <div>
-                    <strong className="block text-slate-900 font-semibold">Часы работы:</strong>
-                    <span className="text-slate-600">Ежедневно с 10:00 до 22:00</span>
-                    <span className="text-xs text-slate-400 block mt-0.5">Индивидуальные закрытые показы — круглосуточно по предварительной записи</span>
+                    <strong className="block text-slate-900 font-semibold">
+                      {isRu ? 'Часы работы:' : 'Opening Hours:'}
+                    </strong>
+                    <span className="text-slate-600">
+                      {isRu ? 'Ежедневно с 10:00 до 22:00' : 'Daily from 10:00 AM to 10:00 PM'}
+                    </span>
+                    <span className="text-xs text-slate-400 block mt-0.5">
+                      {isRu
+                        ? 'Индивидуальные закрытые показы — круглосуточно по предварительной записи'
+                        : 'Private VIP salon viewings available 24/7 by appointment'}
+                    </span>
                   </div>
                 </div>
 
@@ -84,11 +104,15 @@ export const ContactsPage: React.FC = () => {
                     <Phone className="w-6 h-6 stroke-[2.5] text-white animate-phone-ring" />
                   </div>
                   <div className="flex-1">
-                    <strong className="block text-slate-900 font-bold text-base">Телефон & Арт-Консьерж:</strong>
+                    <strong className="block text-slate-900 font-bold text-base">
+                      {isRu ? 'Телефон & Арт-Консьерж:' : 'Phone & Art Concierge:'}
+                    </strong>
                     <a href="tel:+13055552787" className="text-lg font-serif font-black text-slate-950 hover:text-sky-600 transition-colors block">
                       +1 (305) 555-ARTS (2787)
                     </a>
-                    <span className="text-xs text-slate-500 block mb-3">Звонки по США и международные консультации</span>
+                    <span className="text-xs text-slate-500 block mb-3">
+                      {isRu ? 'Звонки по США и международные консультации' : 'US Toll-free & International Inquiries'}
+                    </span>
 
                     {/* Bright WhatsApp Action Button */}
                     <a
@@ -101,7 +125,7 @@ export const ContactsPage: React.FC = () => {
                         <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.587 1.954.918 3.208.918 3.181 0 5.767-2.586 5.768-5.766.001-3.187-2.575-5.771-5.77-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.079-1.897-.442-1.615-.668-2.651-2.315-2.732-2.423-.081-.108-.654-.871-.654-1.661 0-.79.414-1.179.561-1.341.144-.162.316-.203.421-.203.106 0 .211.002.302.007.098.005.231-.037.36.274.133.32.454 1.108.495 1.189.041.081.069.176.014.284-.055.108-.083.176-.164.271-.081.095-.171.212-.245.284-.083.082-.169.17-.073.336.096.166.427.705.916 1.141.629.56 1.161.733 1.326.815.166.082.263.072.36-.041.097-.113.414-.482.525-.648.111-.166.222-.138.373-.082.152.056.969.457 1.135.54.166.082.277.123.318.192.041.068.041.399-.103.804z" />
                         <path d="M12 2C6.477 2 2 6.477 2 12c0 1.891.527 3.662 1.447 5.178L2 22l4.981-1.398A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.063c-1.611 0-3.125-.461-4.417-1.258l-.317-.193-2.946.825.834-2.868-.211-.334A8.026 8.026 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8.063-8 8.063z" />
                       </svg>
-                      <span>Чат в WhatsApp с куратором</span>
+                      <span>{isRu ? 'Чат в WhatsApp с куратором' : 'Live WhatsApp with Curator'}</span>
                     </a>
                   </div>
                 </div>
@@ -111,7 +135,9 @@ export const ContactsPage: React.FC = () => {
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <strong className="block text-slate-900 font-semibold">Email для предложений:</strong>
+                    <strong className="block text-slate-900 font-semibold">
+                      {isRu ? 'Email для предложений:' : 'Direct Email:'}
+                    </strong>
                     <a href="mailto:curator@miamiartstudio.com" className="text-sky-700 hover:text-sky-900 font-medium">
                       curator@miamiartstudio.com
                     </a>
@@ -122,7 +148,11 @@ export const ContactsPage: React.FC = () => {
               {/* Valet Parking Info */}
               <div className="p-4 rounded-2xl bg-sky-50/60 border border-sky-100 flex items-center gap-3 text-xs text-slate-700">
                 <Car className="w-5 h-5 text-sky-600 flex-shrink-0" />
-                <span>Бесплатный Valet Parking для гостей галереи у главного входа.</span>
+                <span>
+                  {isRu 
+                    ? 'Бесплатный Valet Parking для гостей галереи у главного входа.' 
+                    : 'Complimentary Valet Parking for gallery guests at main entrance.'}
+                </span>
               </div>
             </div>
 
@@ -144,7 +174,7 @@ export const ContactsPage: React.FC = () => {
                     rel="noreferrer"
                     className="inline-block px-4 py-1.5 rounded-lg bg-sky-600 text-white text-xs font-semibold hover:bg-sky-500 transition-colors"
                   >
-                    Открыть в Google Maps
+                    {isRu ? 'Открыть в Google Maps' : 'Open in Google Maps'}
                   </a>
                 </div>
               </div>
@@ -160,40 +190,44 @@ export const ContactsPage: React.FC = () => {
                     <CheckCircle className="w-8 h-8" />
                   </div>
                   <h3 className="text-2xl font-serif font-bold text-slate-900 mb-2">
-                    Благодарим за обращение!
+                    {isRu ? 'Благодарим за обращение!' : 'Thank you for reaching out!'}
                   </h3>
                   <p className="text-sm text-slate-600 max-w-sm mb-6">
-                    Наш старший арт-куратор свяжется с вами по указанному телефону или почте в ближайшее время.
+                    {isRu
+                      ? 'Наш старший арт-куратор свяжется с вами по указанному телефону или почте в ближайшее время.'
+                      : 'Our senior art curator will contact you via email or phone shortly.'}
                   </p>
                   <button
                     onClick={() => setFormSubmitted(false)}
                     className="px-6 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-semibold"
                   >
-                    Отправить еще одно сообщение
+                    {isRu ? 'Отправить еще одно сообщение' : 'Send Another Message'}
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <span className="text-xs uppercase tracking-wider font-bold text-sky-600 block mb-1">
-                      Обратная связь
+                      {isRu ? 'Обратная связь' : 'Get in Touch'}
                     </span>
                     <h3 className="text-2xl font-serif font-bold text-slate-900 mb-1">
-                      Записаться на просмотр или консультацию
+                      {isRu ? 'Записаться на просмотр или консультацию' : 'Book a Private Salon or Advisory Session'}
                     </h3>
-                    <p className="text-xs text-slate-500">
-                      Заполните форму, и мы подготовим экспозицию под ваши предпочтения к вашему приезду.
+                    <p className="text-xs text-slate-500 font-medium">
+                      {isRu
+                        ? 'Заполните форму, и мы подготовим экспозицию под ваши предпочтения к вашему приезду.'
+                        : 'Complete this form and we will curate a private viewing based on your palette and architectural style.'}
                     </p>
                   </div>
 
                   <div>
                     <label className="text-xs font-bold text-slate-700 block mb-1 uppercase tracking-wider">
-                      Ваше имя
+                      {isRu ? 'Ваше имя' : 'Full Name'}
                     </label>
                     <input
                       type="text"
                       required
-                      placeholder="Виктория Романова"
+                      placeholder={isRu ? 'Виктория Романова' : 'Victoria Romanova'}
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full px-4 py-2.5 rounded-xl border border-sky-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
@@ -216,7 +250,7 @@ export const ContactsPage: React.FC = () => {
                     </div>
                     <div>
                       <label className="text-xs font-bold text-slate-700 block mb-1 uppercase tracking-wider">
-                        Телефон (WhatsApp)
+                        {isRu ? 'Телефон (WhatsApp)' : 'Phone (WhatsApp)'}
                       </label>
                       <input
                         type="tel"
@@ -231,28 +265,42 @@ export const ContactsPage: React.FC = () => {
 
                   <div>
                     <label className="text-xs font-bold text-slate-700 block mb-1 uppercase tracking-wider">
-                      Цель обращения
+                      {isRu ? 'Цель обращения' : 'Inquiry Purpose'}
                     </label>
                     <select
                       value={formData.purpose}
                       onChange={(e) => setFormData({ ...formData, purpose: e.target.value })}
                       className="w-full p-2.5 rounded-xl bg-sky-50/50 border border-sky-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
                     >
-                      <option value="consultation">Подбор картины под дизайн проект интерьера</option>
-                      <option value="visit">Визит и закрытый показ в галерее Wynwood</option>
-                      <option value="commission">Индивидуальный заказ картины у резидента</option>
-                      <option value="designer-partnership">Сотрудничество для дизайнеров и архитекторов</option>
-                      <option value="masterclass">Корпоративный или частный мастер-класс</option>
+                      {isRu ? (
+                        <>
+                          <option value="consultation">Подбор картины под дизайн проект интерьера</option>
+                          <option value="visit">Визит и закрытый показ в галерее Wynwood</option>
+                          <option value="commission">Индивидуальный заказ картины у резидента</option>
+                          <option value="designer-partnership">Сотрудничество для дизайнеров и архитекторов</option>
+                          <option value="masterclass">Корпоративный или частный мастер-класс</option>
+                        </>
+                      ) : (
+                        <>
+                          <option value="consultation">Interior Design Artwork Advisory</option>
+                          <option value="visit">Private VIP Gallery Salon in Wynwood</option>
+                          <option value="commission">Bespoke Commission from Resident Master</option>
+                          <option value="designer-partnership">Trade Partnership for Architects & Designers</option>
+                          <option value="masterclass">Private / Corporate Painting Masterclass</option>
+                        </>
+                      )}
                     </select>
                   </div>
 
                   <div>
                     <label className="text-xs font-bold text-slate-700 block mb-1 uppercase tracking-wider">
-                      Комментарий или пожелания
+                      {isRu ? 'Комментарий или пожелания' : 'Comments & Notes'}
                     </label>
                     <textarea
                       rows={4}
-                      placeholder="Укажите стиль интерьера, желаемые размеры или название понравившейся картины..."
+                      placeholder={isRu 
+                        ? 'Укажите стиль интерьера, желаемые размеры или название понравившейся картины...' 
+                        : 'Specify interior style, preferred dimensions, or desired artwork title...'}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full p-3 rounded-xl border border-sky-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
@@ -264,10 +312,12 @@ export const ContactsPage: React.FC = () => {
                     className="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold text-xs uppercase tracking-wider shadow-lg shadow-sky-500/25 flex items-center justify-center gap-2 transition-all"
                   >
                     <Send className="w-4 h-4" />
-                    <span>Отправить запрос арт-куратору</span>
+                    <span>{isRu ? 'Отправить запрос арт-куратору' : 'Send Inquiry to Senior Curator'}</span>
                   </button>
                   <p className="text-[10px] text-slate-400 text-center">
-                    Конфиденциальность гарантируется. Ваши контакты не передаются третьим лицам.
+                    {isRu 
+                      ? 'Конфиденциальность гарантируется. Ваши контакты не передаются третьим лицам.' 
+                      : 'Strict confidentiality guaranteed. Your contact details remain private.'}
                   </p>
                 </form>
               )}

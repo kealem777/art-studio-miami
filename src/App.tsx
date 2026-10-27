@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { HashRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
 import { CartProvider, useCart } from './context/CartContext';
+import { getAssetUrl } from './utils/assets';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { CartDrawer } from './components/common/CartDrawer';
@@ -49,7 +50,18 @@ export function App() {
       <LanguageProvider>
         <CartProvider>
           <ScrollToTop />
-          <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800">
+          {/* Fixed Ambient Artistic Palette Background with Breathing Animation */}
+          <div className="palette-ambient-container" aria-hidden="true">
+            <div
+              className="palette-ambient-image"
+              style={{
+                backgroundImage: `url(${getAssetUrl('art-palette-bg.jpg')})`,
+              }}
+            />
+            <div className="palette-ambient-overlay" />
+          </div>
+
+          <div className="min-h-screen flex flex-col text-slate-900 relative z-10">
             <Header />
 
             {/* Main Viewport */}

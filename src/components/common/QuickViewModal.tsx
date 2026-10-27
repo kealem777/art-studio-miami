@@ -16,6 +16,8 @@ import { getAssetUrl } from '../../utils/assets';
 
 export const QuickViewModal: React.FC = () => {
   const { quickViewArtwork, setQuickViewArtwork, addToCart, toggleFavorite, isFavorite } = useCart();
+  const { language, t } = useLanguage();
+  const isRu = language === 'ru';
   const navigate = useNavigate();
 
   if (!quickViewArtwork) return null;
@@ -25,6 +27,10 @@ export const QuickViewModal: React.FC = () => {
     setQuickViewArtwork(null);
     navigate(`/interior-match?artworkId=${artId}`);
   };
+
+  const displayTitle = isRu 
+    ? (quickViewArtwork.titleRu || quickViewArtwork.title) 
+    : quickViewArtwork.title;
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 sm:p-6 md:p-10">
@@ -63,7 +69,7 @@ export const QuickViewModal: React.FC = () => {
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-sky-100/80 hover:bg-sky-200 text-sky-800 text-xs font-semibold transition-colors"
             >
               <Eye className="w-3.5 h-3.5 text-sky-600" />
-              <span>Примерить на стене комнаты</span>
+              <span>{isRu ? 'Примерить на стене комнаты' : 'Virtual 3D Room Fitting'}</span>
             </button>
           </div>
         </div>
@@ -78,7 +84,7 @@ export const QuickViewModal: React.FC = () => {
               <button
                 onClick={() => toggleFavorite(quickViewArtwork.id)}
                 className="p-2 rounded-full hover:bg-rose-50 text-slate-400 hover:text-rose-500 transition-colors"
-                title="Добавить в избранное"
+                title={isRu ? 'Добавить в избранное' : 'Add to favorites'}
               >
                 <Heart
                   className={`w-5 h-5 ${
@@ -89,9 +95,11 @@ export const QuickViewModal: React.FC = () => {
             </div>
 
             <h3 className="text-2xl font-serif font-bold text-slate-900 mb-1">
-              {quickViewArtwork.title}
+              {displayTitle}
             </h3>
-            <p className="text-sm text-slate-500 italic mb-4">{quickViewArtwork.titleRu}</p>
+            <p className="text-sm text-slate-500 italic mb-4">
+              {isRu ? quickViewArtwork.title : quickViewArtwork.titleRu}
+            </p>
 
             {/* Artist link */}
             <div className="flex items-center gap-3 p-3 rounded-2xl bg-sky-50/60 border border-sky-100 mb-5">
@@ -101,7 +109,9 @@ export const QuickViewModal: React.FC = () => {
                 className="w-10 h-10 rounded-full object-cover border border-white shadow-sm"
               />
               <div>
-                <span className="text-[11px] text-slate-400 uppercase tracking-wider block">Автор полотна</span>
+                <span className="text-[11px] text-slate-400 uppercase tracking-wider block">
+                  {isRu ? 'Автор полотна' : 'Resident Master'}
+                </span>
                 <Link
                   to={`/artists/${quickViewArtwork.artistSlug}`}
                   onClick={() => setQuickViewArtwork(null)}
@@ -116,24 +126,34 @@ export const QuickViewModal: React.FC = () => {
             {/* Key Specifications Grid */}
             <div className="grid grid-cols-2 gap-3 mb-5 text-xs">
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="text-slate-400 block mb-0.5">Размеры</span>
+                <span className="text-slate-400 block mb-0.5">
+                  {isRu ? 'Размеры' : 'Dimensions'}
+                </span>
                 <span className="font-semibold text-slate-800">{quickViewArtwork.dimensions}</span>
               </div>
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="text-slate-400 block mb-0.5">Техника</span>
+                <span className="text-slate-400 block mb-0.5">
+                  {isRu ? 'Техника' : 'Medium'}
+                </span>
                 <span className="font-semibold text-slate-800">{quickViewArtwork.medium}</span>
               </div>
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="text-slate-400 block mb-0.5">Год создания</span>
-                <span className="font-semibold text-slate-800">{quickViewArtwork.year} г.</span>
+                <span className="text-slate-400 block mb-0.5">
+                  {isRu ? 'Год создания' : 'Year'}
+                </span>
+                <span className="font-semibold text-slate-800">{quickViewArtwork.year}</span>
               </div>
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="text-slate-400 block mb-0.5">Наличие</span>
-                <span className="font-semibold text-emerald-600">В наличии в Майами</span>
+                <span className="text-slate-400 block mb-0.5">
+                  {isRu ? 'Наличие' : 'Availability'}
+                </span>
+                <span className="font-semibold text-emerald-600">
+                  {isRu ? 'В наличии в Майами' : 'In Stock Wynwood'}
+                </span>
               </div>
             </div>
 
-            <p className="text-xs text-slate-600 leading-relaxed mb-6">
+            <p className="text-xs text-slate-600 leading-relaxed mb-6 font-medium">
               {quickViewArtwork.description}
             </p>
           </div>
@@ -142,7 +162,9 @@ export const QuickViewModal: React.FC = () => {
           <div className="pt-4 border-t border-sky-100">
             <div className="flex items-baseline justify-between mb-4">
               <div>
-                <span className="text-xs text-slate-400 block">Стоимость оригинала:</span>
+                <span className="text-xs text-slate-400 block">
+                  {isRu ? 'Стоимость оригинала:' : 'Original Canvas Price:'}
+                </span>
                 <span className="text-3xl font-serif font-bold text-slate-900">
                   ${quickViewArtwork.price.toLocaleString()}
                 </span>
@@ -150,7 +172,7 @@ export const QuickViewModal: React.FC = () => {
               </div>
               <span className="text-xs text-emerald-600 font-medium flex items-center gap-1">
                 <ShieldCheck className="w-4 h-4" />
-                Сертификат подлинности
+                {isRu ? 'Сертификат подлинности' : 'Certificate Included'}
               </span>
             </div>
 
@@ -163,16 +185,16 @@ export const QuickViewModal: React.FC = () => {
                 className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold text-sm shadow-lg shadow-sky-500/25 flex items-center justify-center gap-2 transition-all"
               >
                 <ShoppingBag className="w-4 h-4" />
-                <span>В корзину</span>
+                <span>{t('btnAddToCart')}</span>
               </button>
 
               <button
                 onClick={handleTryInInterior}
                 className="px-4 py-3.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-800 border border-sky-200 font-semibold text-sm transition-colors flex items-center gap-1.5"
-                title="Виртуальная примерка"
+                title={isRu ? 'Виртуальная примерка' : 'Virtual 3D Room Match'}
               >
                 <Maximize2 className="w-4 h-4 text-sky-600" />
-                <span>Примерить</span>
+                <span>{t('btnTryInInterior')}</span>
               </button>
             </div>
           </div>

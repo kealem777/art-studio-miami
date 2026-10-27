@@ -159,17 +159,34 @@ export const translations: Translations = {
   collectorsClubTitle: { en: 'Receive Private Previews of New Collections', ru: 'Получайте закрытые превью новых коллекций' },
   collectorsClubDesc: { 
     en: 'Early access to exclusive resident releases, private VIP invitations to Art Basel satellite vernissages and private salon evenings.', 
-    ru: 'Ранний доступ к эксклюзивным картинам резидентов, персональные приглашения на вернисажи в Wynwood и закрытые арт-вечера.' 
+    ru: 'Ранний доступ к эксклюзивным картинам резидентов галереи, персональные приглашения на вернисажи в Wynwood и закрытые арт-вечера.' 
   },
+  emailPlaceholder: { en: 'Your e-mail (e.g. collector@luxury.com)', ru: 'Ваш e-mail (например: collector@luxury.com)' },
   joinClubBtn: { en: 'Join Circle', ru: 'Вступить' },
+  noSpamNotice: { en: 'No spam. Curatorial releases and private salon invitations only.', ru: 'Без спама. Только высокое искусство и личные приглашения.' },
+  clubSuccessAlert: { en: 'Thank you for your interest! You have been included in the Miami Art Studio private collectors circle.', ru: 'Благодарим за интерес! Вы включены в закрытый список коллекционеров Miami Art Studio.' },
   footerAboutText: { 
     en: 'Premier contemporary art gallery and creative sanctuary in the heart of Wynwood Art District, Miami. Museum-grade original canvases, interior art advisory, and collector masterclasses.', 
     ru: 'Премиальная галерея современного искусства и творческое пространство в сердце района Wynwood, Майами. Оригинальные холсты музейного уровня, интерьерный арт-консалтинг и мастер-классы.' 
   },
+  certGuaranteed: { en: '100% Certificate of Authenticity signed by the resident master', ru: '100% Сертификат подлинности с подписью автора' },
+  crateShipping: { en: 'White-glove custom wooden crate delivery across USA & worldwide', ru: 'Бережная доставка в спецбоксах по США и миру (FedEx / DHL)' },
   footerNavTitle: { en: 'Navigation', ru: 'Навигация' },
+  navCatalog: { en: 'Artworks Catalog', ru: 'Каталог картин' },
+  navFitting: { en: '3D Virtual Try-On', ru: 'Примерка в интерьере' },
+  navArtists: { en: 'Resident Artists', ru: 'Резиденты студии' },
+  navMasterclasses: { en: 'Masterclasses & Events', ru: 'Мастер-классы' },
+  navAbout: { en: 'About Gallery & Curators', ru: 'О галерее и кураторах' },
+  navContacts: { en: 'Location & Contacts', ru: 'Контакты и локация' },
   footerStylesTitle: { en: 'Interior Styles', ru: 'Стили интерьера' },
-  footerLocationTitle: { en: 'Miami Gallery', ru: 'Галерея в Майами' },
+  footerLocationTitle: { en: 'Miami Gallery & Studio', ru: 'Галерея в Майами' },
+  footerHoursLabel: { en: 'Studio Hours:', ru: 'Часы работы:' },
   footerHoursVal: { en: 'Daily from 10:00 AM to 10:00 PM', ru: 'Ежедневно с 10:00 до 22:00' },
+  footerPhoneLabel: { en: 'Art Concierge Line:', ru: 'Телефон & Консьерж:' },
+  privacyPolicy: { en: 'Privacy Policy', ru: 'Политика конфиденциальности' },
+  termsOfSale: { en: 'Collector Terms & Delivery', ru: 'Условия покупки и доставки' },
+  stripeVerified: { en: 'Stripe Verified 256-Bit SSL', ru: 'Stripe Verified 256-Bit SSL' },
+  allRightsReserved: { en: 'All rights reserved. Registered in Florida, USA.', ru: 'Все права защищены. Зарегистрировано во Флориде, США.' },
 
   // Cart
   cartTitleHeading: { en: 'Collection Cart', ru: 'Корзина коллекции' },
