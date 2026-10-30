@@ -56,11 +56,11 @@ export const MasterclassesPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50/60 via-white to-sky-50/30 text-slate-800 pb-24">
+    <div className="min-h-screen bg-transparent text-slate-800 pb-24">
       {/* Header */}
-      <section className="pt-14 pb-12 px-6 max-w-7xl mx-auto border-b border-sky-100">
+      <section className="pt-14 pb-12 px-6 max-w-7xl mx-auto border-b border-sky-200/70">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100/80 border border-sky-200 text-sky-800 text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-sky-200 text-sky-800 text-xs font-semibold mb-3 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-sky-600" />
             {isRu ? 'Творческое пространство в арт-районе Wynwood' : 'Creative Studio Sanctuary in Wynwood Art District'}
           </div>
@@ -83,7 +83,7 @@ export const MasterclassesPage: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 selectedCategory === cat.id
                   ? 'bg-sky-600 text-white shadow-md shadow-sky-500/20'
-                  : 'bg-white hover:bg-sky-50 text-slate-700 border border-sky-100'
+                  : 'bg-white/90 hover:bg-white text-slate-700 border border-sky-200/80'
               }`}
             >
               {cat.label}
@@ -98,7 +98,7 @@ export const MasterclassesPage: React.FC = () => {
           {filteredClasses.map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-3xl overflow-hidden border border-sky-100 hover:border-sky-300 shadow-sm hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 flex flex-col justify-between"
+              className="bg-white/95 backdrop-blur-md rounded-3xl overflow-hidden border-2 border-sky-200/80 hover:border-sky-400 shadow-lg hover:shadow-2xl hover:shadow-sky-500/15 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 {/* Photo & Badges */}
@@ -298,9 +298,9 @@ export const MasterclassesPage: React.FC = () => {
                         onChange={(e) => setBookingForm({ ...bookingForm, time: e.target.value })}
                         className="w-full px-3 py-2 rounded-xl border border-sky-200 text-xs text-slate-800 focus:ring-2 focus:ring-sky-400"
                       >
-                        <option value="14:00">14:00 (Afternoon)</option>
-                        <option value="17:00">17:00 (Golden Hour)</option>
-                        <option value="19:30">19:30 (Evening)</option>
+                        <option value="14:00">{isRu ? '14:00 (Дневной сеанс)' : '2:00 PM (Afternoon)'}</option>
+                        <option value="17:00">{isRu ? '17:00 (Золотой час)' : '5:00 PM (Golden Hour)'}</option>
+                        <option value="19:30">{isRu ? '19:30 (Вечерний салон)' : '7:30 PM (Evening)'}</option>
                       </select>
                     </div>
                   </div>

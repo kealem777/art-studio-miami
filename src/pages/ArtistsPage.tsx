@@ -10,11 +10,11 @@ export const ArtistsPage: React.FC = () => {
   const isRu = language === 'ru';
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50/60 via-white to-sky-50/30 text-slate-800 pb-24">
+    <div className="min-h-screen bg-transparent text-slate-800 pb-24">
       {/* Header */}
-      <section className="pt-14 pb-12 px-6 max-w-7xl mx-auto border-b border-sky-100">
+      <section className="pt-14 pb-12 px-6 max-w-7xl mx-auto border-b border-sky-200/70">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100/80 border border-sky-200 text-sky-800 text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-sky-200 text-sky-800 text-xs font-semibold mb-3 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-sky-600" />
             {isRu ? 'Резиденты галереи Miami Art Studio' : 'Miami Art Studio Resident Masters'}
           </div>
@@ -35,7 +35,7 @@ export const ArtistsPage: React.FC = () => {
           {ARTISTS_DATA.map((artist) => (
             <div
               key={artist.id}
-              className="group bg-white rounded-3xl overflow-hidden border border-sky-100 hover:border-sky-300 shadow-sm hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 flex flex-col justify-between"
+              className="group bg-white/95 backdrop-blur-md rounded-3xl overflow-hidden border-2 border-sky-200/80 hover:border-sky-400 shadow-lg hover:shadow-2xl hover:shadow-sky-500/15 transition-all duration-300 flex flex-col justify-between"
             >
               {/* Cover & Avatar Header */}
               <div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Heart, ShoppingBag, Eye, Maximize2 } from 'lucide-react';
 import { Artwork } from '../../types';
+import { ARTISTS_DATA } from '../../data/mockData';
 import { useCart } from '../../context/CartContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { getAssetUrl } from '../../utils/assets';
@@ -10,9 +11,18 @@ interface ArtworkCardProps {
   artwork: Artwork;
 }
 
+const STYLE_RU_MAP: Record<string, string> = {
+  'Modern': 'Модерн',
+  'Minimalism': 'Минимализм',
+  'Loft': 'Лофт',
+  'Hi-Tech': 'Хай-тек',
+  'Neo-Classicism': 'Неоклассика',
+};
+
 export const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
   const { addToCart, toggleFavorite, isFavorite, setQuickViewArtwork } = useCart();
   const { language, t } = useLanguage();
+  const isRu = language === 'ru';
   const navigate = useNavigate();
 
   const handleTryInInterior = (e: React.MouseEvent) => {
@@ -39,11 +49,16 @@ export const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
     toggleFavorite(artwork.id);
   };
 
-  const displayTitle = language === 'ru' ? (artwork.titleRu || artwork.title) : artwork.title;
+  const displayTitle = isRu ? (artwork.titleRu || artwork.title) : artwork.title;
+  const artistObj = ARTISTS_DATA.find((a) => a.slug === artwork.artistSlug || a.id === artwork.artistId);
+  const displayArtistName = isRu && artistObj?.nameRu ? artistObj.nameRu : artwork.artistName;
+  const displayMedium = isRu ? (artwork.mediumRu || artwork.medium) : artwork.medium;
+  const displayDimensions = isRu ? (artwork.dimensionsRu || artwork.dimensions) : artwork.dimensions;
+  const displayStyle = isRu ? (STYLE_RU_MAP[artwork.style] || artwork.style) : artwork.style;
   const imageSrc = getAssetUrl(artwork.imageUrl);
 
   return (
-    <div className="group relative bg-white rounded-3xl overflow-hidden border-2 border-sky-100 hover:border-sky-400 shadow-md hover:shadow-2xl hover:shadow-sky-500/15 hover:-translate-y-1 transition-all duration-300 flex flex-col">
+    <div className="group relative bg-white/95 backdrop-blur-md rounded-3xl overflow-hidden border-2 border-sky-200/80 hover:border-sky-400 shadow-lg hover:shadow-2xl hover:shadow-sky-500/20 hover:-translate-y-1 transition-all duration-300 flex flex-col">
       {/* Artwork Image Container */}
       <div className="relative aspect-[4/5] bg-gradient-to-b from-sky-50/50 to-slate-100 overflow-hidden cursor-pointer">
         <Link to={`/gallery/${artwork.id}`} className="block w-full h-full">
@@ -61,13 +76,13 @@ export const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
         {/* Top Badges */}
         <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
           <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-sky-900 text-[10px] uppercase tracking-wider font-black shadow-md border border-sky-200 pointer-events-auto">
-            {artwork.style}
+            {displayStyle}
           </span>
 
           <button
             onClick={handleToggleFav}
             className="w-9 h-9 rounded-full bg-white/95 backdrop-blur-md text-slate-400 hover:text-rose-500 hover:bg-white flex items-center justify-center shadow-md transition-all pointer-events-auto"
-            title="Favorite"
+            title={isRu ? 'В избранное' : 'Favorite'}
           >
             <Heart
               className={`w-4 h-4 ${
@@ -97,13 +112,13 @@ export const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
       </div>
 
       {/* Card Info & Details */}
-      <div className="p-5 flex-1 flex flex-col justify-between bg-white">
+      <div className="p-5 flex-1 flex flex-col justify-between bg-white/90">
         <div>
           <Link
             to={`/artists/${artwork.artistSlug}`}
             className="text-xs text-sky-600 hover:text-sky-800 font-bold mb-1 inline-block transition-colors"
           >
-            {artwork.artistName}
+            {displayArtistName}
           </Link>
 
           <Link to={`/gallery/${artwork.id}`} className="block">
@@ -113,9 +128,9 @@ export const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
           </Link>
 
           <div className="flex items-center gap-2 text-[11px] text-slate-500 mb-3 font-medium">
-            <span>{artwork.medium}</span>
+            <span>{displayMedium}</span>
             <span>•</span>
-            <span>{artwork.dimensions}</span>
+            <span>{displayDimensions}</span>
           </div>
         </div>
 

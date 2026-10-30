@@ -25,12 +25,13 @@ export const translations: Translations = {
   contacts: { en: 'Contacts', ru: 'Контакты' },
 
   // Top Bar & Utility
-  locationWynwood: { en: 'Miami, Wynwood Art District • 250 NW 24th St', ru: 'Miami, Wynwood Art District • 250 NW 24th St' },
-  callUs: { en: 'Call Gallery', ru: 'Позвонить' },
+  locationWynwood: { en: 'Miami, Wynwood Art District • 250 NW 24th St', ru: 'Майами, Арт-квартал Винвуд • 250 NW 24th St' },
+  callUs: { en: 'Call Gallery', ru: 'Позвонить в галерею' },
   whatsappUs: { en: 'WhatsApp Curator', ru: 'Написать в WhatsApp' },
-  artSeasonTag: { en: 'Miami Art Season 2025: Exclusive Collection', ru: 'Miami Art Season 2025: Эксклюзивная коллекция' },
+  artSeasonTag: { en: 'Miami Art Season 2025: Exclusive Collection', ru: 'Арт-сезон Майами 2025: Эксклюзивная коллекция' },
   tryIn3DBadge: { en: '3D Try On', ru: 'Примерить 3D' },
   currency: { en: 'USD ($)', ru: 'USD ($)' },
+  details: { en: 'Explore', ru: 'Подробнее' },
 
   // Hero Section
   heroWynwoodTag: { en: 'Wynwood Art District • Miami, Florida', ru: 'Арт-квартал Винвуд • Майами, Флорида' },

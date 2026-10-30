@@ -17,7 +17,7 @@ export const AboutPage: React.FC = () => {
   const isRu = language === 'ru';
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50/60 via-white to-sky-50/30 text-slate-800 pb-24">
+    <div className="min-h-screen bg-transparent text-slate-800 pb-24">
       {/* Hero Section */}
       <section className="relative pt-20 pb-16 px-6 max-w-7xl mx-auto overflow-hidden">
         <div className="max-w-3xl">

@@ -35,7 +35,7 @@ export const ContactsPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50/60 via-white to-sky-50/30 text-slate-800 pb-24">
+    <div className="min-h-screen bg-transparent text-slate-800 pb-24">
       {/* Header */}
       <section className="pt-14 pb-12 px-6 max-w-7xl mx-auto border-b border-sky-100">
         <div className="max-w-3xl">

@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useLanguage } from '../../context/LanguageContext';
+import { ARTISTS_DATA } from '../../data/mockData';
 import { getAssetUrl } from '../../utils/assets';
 
 export const QuickViewModal: React.FC = () => {
@@ -31,6 +32,11 @@ export const QuickViewModal: React.FC = () => {
   const displayTitle = isRu 
     ? (quickViewArtwork.titleRu || quickViewArtwork.title) 
     : quickViewArtwork.title;
+  const artistObj = ARTISTS_DATA.find((a) => a.slug === quickViewArtwork.artistSlug || a.id === quickViewArtwork.artistId);
+  const displayArtistName = isRu && artistObj?.nameRu ? artistObj.nameRu : quickViewArtwork.artistName;
+  const displayDimensions = isRu ? (quickViewArtwork.dimensionsRu || quickViewArtwork.dimensions) : quickViewArtwork.dimensions;
+  const displayMedium = isRu ? (quickViewArtwork.mediumRu || quickViewArtwork.medium) : quickViewArtwork.medium;
+  const displayDescription = isRu ? (quickViewArtwork.descriptionRu || quickViewArtwork.description) : quickViewArtwork.description;
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 sm:p-6 md:p-10">
@@ -94,18 +100,15 @@ export const QuickViewModal: React.FC = () => {
               </button>
             </div>
 
-            <h3 className="text-2xl font-serif font-bold text-slate-900 mb-1">
+            <h3 className="text-2xl font-serif font-bold text-slate-900 mb-3">
               {displayTitle}
             </h3>
-            <p className="text-sm text-slate-500 italic mb-4">
-              {isRu ? quickViewArtwork.title : quickViewArtwork.titleRu}
-            </p>
 
             {/* Artist link */}
             <div className="flex items-center gap-3 p-3 rounded-2xl bg-sky-50/60 border border-sky-100 mb-5">
               <img
                 src={quickViewArtwork.artistAvatar}
-                alt={quickViewArtwork.artistName}
+                alt={displayArtistName}
                 className="w-10 h-10 rounded-full object-cover border border-white shadow-sm"
               />
               <div>
@@ -117,7 +120,7 @@ export const QuickViewModal: React.FC = () => {
                   onClick={() => setQuickViewArtwork(null)}
                   className="font-serif font-semibold text-slate-900 hover:text-sky-600 text-sm flex items-center gap-1 transition-colors"
                 >
-                  <span>{quickViewArtwork.artistName}</span>
+                  <span>{displayArtistName}</span>
                   <ArrowRight className="w-3 h-3 text-sky-500" />
                 </Link>
               </div>
@@ -129,13 +132,13 @@ export const QuickViewModal: React.FC = () => {
                 <span className="text-slate-400 block mb-0.5">
                   {isRu ? 'Размеры' : 'Dimensions'}
                 </span>
-                <span className="font-semibold text-slate-800">{quickViewArtwork.dimensions}</span>
+                <span className="font-semibold text-slate-800">{displayDimensions}</span>
               </div>
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
                 <span className="text-slate-400 block mb-0.5">
                   {isRu ? 'Техника' : 'Medium'}
                 </span>
-                <span className="font-semibold text-slate-800">{quickViewArtwork.medium}</span>
+                <span className="font-semibold text-slate-800">{displayMedium}</span>
               </div>
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
                 <span className="text-slate-400 block mb-0.5">
@@ -154,7 +157,7 @@ export const QuickViewModal: React.FC = () => {
             </div>
 
             <p className="text-xs text-slate-600 leading-relaxed mb-6 font-medium">
-              {quickViewArtwork.description}
+              {displayDescription}
             </p>
           </div>
 

@@ -43,7 +43,7 @@ export const ArtistDetailPage: React.FC = () => {
   const artistArtworks = ARTWORKS_DATA.filter((a) => a.artistSlug === artist.slug || a.artistId === artist.id);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50/60 via-white to-sky-50/30 text-slate-800 pb-24">
+    <div className="min-h-screen bg-transparent text-slate-800 pb-24">
       {/* Back button */}
       <div className="max-w-7xl mx-auto px-6 pt-8">
         <Link
@@ -199,7 +199,7 @@ export const ArtistDetailPage: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 pb-4 border-b border-sky-100">
           <div>
             <h3 className="text-2xl md:text-3xl font-serif font-bold text-slate-900">
-              {isRu ? `Произведения автора: ${artist.name}` : `Originals by ${artist.name}`}
+              {isRu ? `Произведения автора: ${artist.nameRu || artist.name}` : `Originals by ${artist.name}`}
             </h3>
             <p className="text-xs text-slate-500 mt-1 font-medium">
               {isRu 

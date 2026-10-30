@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Artwork, CartItem } from '../types';
+import { ARTWORKS_DATA } from '../data/mockData';
+import { useLanguage } from './LanguageContext';
 
 interface CartContextType {
   items: CartItem[];
@@ -29,10 +31,19 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { language } = useLanguage();
+  const isRu = language === 'ru';
+
   const [items, setItems] = useState<CartItem[]>(() => {
     try {
       const saved = localStorage.getItem('miami_art_cart');
-      return saved ? JSON.parse(saved) : [];
+      if (!saved) return [];
+      const parsed: CartItem[] = JSON.parse(saved);
+      // Hydrate with latest bilingual ARTWORKS_DATA
+      return parsed.map((item) => {
+        const freshArt = ARTWORKS_DATA.find((a) => a.id === item.artwork.id);
+        return freshArt ? { ...item, artwork: freshArt } : item;
+      });
     } catch {
       return [];
     }
@@ -86,13 +97,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       return [...prev, { artwork, frame, quantity: 1 }];
     });
-    showToast(`«${artwork.title}» добавлена в корзину`);
+    const title = isRu ? (artwork.titleRu || artwork.title) : artwork.title;
+    showToast(isRu ? `«${title}» добавлена в корзину` : `“${title}” added to collection cart`);
     setIsCartOpen(true);
   };
 
   const removeFromCart = (artworkId: string) => {
     setItems((prev) => prev.filter((item) => item.artwork.id !== artworkId));
-    showToast('Картина удалена из корзины');
+    showToast(isRu ? 'Картина удалена из корзины' : 'Artwork removed from cart');
   };
 
   const updateQuantity = (artworkId: string, quantity: number) => {
@@ -113,10 +125,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setFavorites((prev) => {
       const exists = prev.includes(artworkId);
       if (exists) {
-        showToast('Удалено из избранного');
+        showToast(isRu ? 'Удалено из избранного' : 'Removed from favorites');
         return prev.filter((id) => id !== artworkId);
       } else {
-        showToast('Добавлено в избранное');
+        showToast(isRu ? 'Добавлено в избранное' : 'Added to favorites');
         return [...prev, artworkId];
       }
     });

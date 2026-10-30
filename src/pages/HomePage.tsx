@@ -22,6 +22,7 @@ import { getAssetUrl } from '../utils/assets';
 
 export const HomePage: React.FC = () => {
   const { language, t } = useLanguage();
+  const isRu = language === 'ru';
   const [activeRoomStyle, setActiveRoomStyle] = useState(INTERIOR_ROOMS[0]);
 
   // Hero Carousel state (4 user requested covers)
@@ -38,14 +39,14 @@ export const HomePage: React.FC = () => {
   }, [isPaused]);
 
   const activeSlide = HERO_SLIDES[currentSlideIndex];
-  const slideTitle = language === 'ru' ? activeSlide.titleRu : activeSlide.titleEn;
-  const slideSubtitle = language === 'ru' ? activeSlide.subtitleRu : activeSlide.subtitleEn;
+  const slideTitle = isRu ? activeSlide.titleRu : activeSlide.titleEn;
+  const slideSubtitle = isRu ? activeSlide.subtitleRu : activeSlide.subtitleEn;
 
   // Top 6 featured artworks
   const featuredArtworks = ARTWORKS_DATA.filter((a) => a.featured).slice(0, 6);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50/70 via-white to-sky-50/40 text-slate-800 overflow-hidden">
+    <div className="min-h-screen bg-transparent text-slate-800 overflow-hidden">
       {/* 1. Hero Section with 4-Cover Interactive Carousel */}
       <section className="relative pt-12 pb-20 md:pt-16 md:pb-28 px-6 max-w-7xl mx-auto">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-sky-300/20 via-rose-200/20 to-amber-200/20 rounded-full blur-3xl pointer-events-none" />
@@ -221,14 +222,14 @@ export const HomePage: React.FC = () => {
                 onClick={() => setActiveRoomStyle(room)}
                 className={`p-4 rounded-3xl text-left border-2 transition-all duration-300 flex flex-col justify-between ${
                   isCurrent
-                    ? 'border-sky-500 bg-white shadow-xl shadow-sky-500/15 ring-2 ring-sky-300 scale-102'
-                    : 'border-sky-100 bg-white/80 hover:bg-white hover:border-sky-300 hover:shadow-md'
+                    ? 'border-sky-500 bg-white/95 backdrop-blur-md shadow-xl shadow-sky-500/15 ring-2 ring-sky-300 scale-102'
+                    : 'border-sky-200/80 bg-white/85 backdrop-blur-md hover:bg-white hover:border-sky-300 hover:shadow-md'
                 }`}
               >
                 <div className="w-full h-36 rounded-2xl overflow-hidden mb-3 relative">
                   <img
                     src={room.imageUrl}
-                    alt={room.name}
+                    alt={isRu ? room.nameRu : room.name}
                     className="w-full h-full object-cover"
                   />
                   <span className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-white/95 backdrop-blur-md text-sky-900 text-[10px] font-black shadow-sm">
@@ -237,10 +238,10 @@ export const HomePage: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-serif font-black text-slate-900 text-sm mb-1">
-                    {room.name}
+                    {isRu ? room.nameRu : room.name}
                   </h4>
                   <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed">
-                    {language === 'ru' ? room.description : `${room.name} aesthetic for luxury spaces.`}
+                    {isRu ? (room.descriptionRu || room.description) : room.description}
                   </p>
                 </div>
               </button>
@@ -252,15 +253,15 @@ export const HomePage: React.FC = () => {
         <div className="rounded-3xl bg-gradient-to-r from-sky-950 via-slate-900 to-sky-900 p-8 md:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl border-2 border-sky-400/30">
           <div>
             <span className="text-xs text-amber-300 font-black tracking-wider uppercase block mb-1">
-              {language === 'ru' ? `Выбран стиль: ${activeRoomStyle.name}` : `Selected Style: ${activeRoomStyle.name}`}
+              {isRu ? `Выбран стиль: ${activeRoomStyle.nameRu}` : `Selected Style: ${activeRoomStyle.name}`}
             </span>
             <h3 className="text-xl md:text-2xl font-serif font-black mb-1">
-              {language === 'ru' 
+              {isRu 
                 ? 'Хотите примерить картины на этой стене прямо сейчас?' 
                 : 'Experience art fitting on this wall in live 3D?'}
             </h3>
             <p className="text-xs text-sky-200/70">
-              {language === 'ru' 
+              {isRu 
                 ? 'Интерактивный инструмент масштабирования, выбора багета и виртуальной примерки в 3D.' 
                 : 'Interactive drag & drop canvas, frame selection, and dynamic lighting switcher.'}
             </p>
@@ -327,37 +328,41 @@ export const HomePage: React.FC = () => {
           {ARTISTS_DATA.slice(0, 3).map((artist) => (
             <div
               key={artist.id}
-              className="group p-6 rounded-3xl bg-white border-2 border-sky-100 hover:border-sky-300 shadow-md hover:shadow-2xl hover:shadow-sky-500/15 transition-all duration-300 flex flex-col justify-between"
+              className="group p-6 rounded-3xl bg-white/95 backdrop-blur-md border-2 border-sky-200/80 hover:border-sky-400 shadow-lg hover:shadow-2xl hover:shadow-sky-500/15 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-5 bg-sky-50 border border-sky-100">
                   <img
                     src={getAssetUrl(artist.coverImage)}
-                    alt={artist.name}
+                    alt={isRu ? (artist.nameRu || artist.name) : artist.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
                   <div className="absolute bottom-3 left-3 flex items-center gap-3">
                     <img
                       src={artist.avatar}
-                      alt={artist.name}
+                      alt={isRu ? (artist.nameRu || artist.name) : artist.name}
                       className="w-11 h-11 rounded-full object-cover border-2 border-white shadow-md"
                     />
                     <div className="text-white">
-                      <span className="font-serif font-black text-sm block">{artist.name}</span>
-                      <span className="text-[10px] text-sky-300 font-bold">{artist.title}</span>
+                      <span className="font-serif font-black text-sm block">
+                        {isRu ? (artist.nameRu || artist.name) : artist.name}
+                      </span>
+                      <span className="text-[10px] text-sky-300 font-bold">
+                        {isRu ? (artist.titleRu || artist.title) : artist.title}
+                      </span>
                     </div>
                   </div>
                 </div>
 
                 <p className="text-xs text-slate-600 leading-relaxed mb-4 line-clamp-3">
-                  {artist.bio}
+                  {isRu ? (artist.bioRu || artist.bio) : artist.bio}
                 </p>
               </div>
 
               <div className="pt-4 border-t border-sky-50 flex items-center justify-between">
                 <span className="text-xs text-sky-700 font-black">
-                  {artist.artworksCount} {language === 'ru' ? 'картин в коллекции' : 'collection originals'}
+                  {artist.artworksCount} {isRu ? 'картин в коллекции' : 'collection originals'}
                 </span>
                 <Link
                   to={`/artists/${artist.slug}`}

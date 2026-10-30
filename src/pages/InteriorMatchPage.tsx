@@ -16,7 +16,7 @@ import {
   Info,
   Maximize2
 } from 'lucide-react';
-import { ARTWORKS_DATA, INTERIOR_ROOMS } from '../data/mockData';
+import { ARTWORKS_DATA, INTERIOR_ROOMS, ARTISTS_DATA } from '../data/mockData';
 import { Artwork, InteriorRoom, ArtStyle } from '../types';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -74,7 +74,9 @@ export const InteriorMatchPage: React.FC = () => {
       const reader = new FileReader();
       reader.onload = (event) => {
         setCustomRoomImage(event.target?.result as string);
-        showToast('Ваш интерьер загружен! Теперь перемещайте картину по стене.');
+        showToast(isRu 
+          ? 'Ваш интерьер загружен! Теперь перемещайте картину по стене.' 
+          : 'Your room photo has been uploaded! Drag the painting across the wall.');
       };
       reader.readAsDataURL(file);
     }
@@ -115,13 +117,18 @@ export const InteriorMatchPage: React.FC = () => {
     }
   };
 
+  const getLocalizedArtistName = (art: Artwork) => {
+    const artistObj = ARTISTS_DATA.find((a) => a.slug === art.artistSlug || a.id === art.artistId);
+    return isRu && artistObj?.nameRu ? artistObj.nameRu : art.artistName;
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50/70 via-white to-sky-50/40 text-slate-800 pb-20">
+    <div className="min-h-screen bg-transparent text-slate-800 pb-20">
       {/* Header section */}
       <section className="pt-12 pb-8 px-6 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-sky-100 pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-sky-200/70 pb-8">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100/80 border border-sky-200 text-sky-800 text-xs font-semibold mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-sky-200 text-sky-800 text-xs font-semibold mb-3 shadow-sm">
               <Compass className="w-4 h-4 text-sky-600 animate-spin-slow" />
               {t('virtualRoomTag')}
             </div>
@@ -136,7 +143,7 @@ export const InteriorMatchPage: React.FC = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={resetPosition}
-              className="px-4 py-2.5 rounded-xl border border-sky-200 hover:bg-sky-50 text-slate-700 text-xs font-semibold flex items-center gap-2 transition-colors shadow-sm"
+              className="px-4 py-2.5 rounded-xl bg-white/90 border border-sky-200 hover:bg-sky-50 text-slate-700 text-xs font-semibold flex items-center gap-2 transition-colors shadow-sm"
             >
               <RotateCcw className="w-4 h-4 text-slate-500" />
               <span>{t('resetSettings')}</span>
@@ -155,13 +162,13 @@ export const InteriorMatchPage: React.FC = () => {
         {/* 1. Interior Style Selector (5 Key Styles from TZ) */}
         <div className="pt-6">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs uppercase tracking-wider font-bold text-slate-500 flex items-center gap-2">
+            <span className="text-xs uppercase tracking-wider font-bold text-slate-600 flex items-center gap-2">
               <Layers className="w-4 h-4 text-sky-600" />
               {t('step1SelectStyle')}
             </span>
 
             {/* Custom Room Upload Button */}
-            <label className="cursor-pointer inline-flex items-center gap-1.5 text-xs text-sky-700 hover:text-sky-900 font-semibold bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-lg border border-sky-200 transition-colors">
+            <label className="cursor-pointer inline-flex items-center gap-1.5 text-xs text-sky-700 hover:text-sky-900 font-semibold bg-white/90 hover:bg-sky-50 px-3 py-1.5 rounded-lg border border-sky-200 transition-colors shadow-sm">
               <Upload className="w-3.5 h-3.5" />
               <span>{customRoomImage ? t('changeOwnRoom') : t('uploadOwnRoom')}</span>
               <input
@@ -186,13 +193,13 @@ export const InteriorMatchPage: React.FC = () => {
                   className={`relative p-2.5 rounded-2xl text-left border transition-all duration-300 flex flex-col justify-between overflow-hidden group ${
                     isSelected
                       ? 'border-sky-500 bg-white shadow-lg shadow-sky-500/15 ring-2 ring-sky-400/40'
-                      : 'border-sky-100 bg-white/70 hover:bg-white hover:border-sky-200'
+                      : 'border-sky-200/80 bg-white/85 backdrop-blur-md hover:bg-white hover:border-sky-300'
                   }`}
                 >
                   <div className="w-full h-24 rounded-xl overflow-hidden mb-2 relative">
                     <img
                       src={room.imageUrl}
-                      alt={room.name}
+                      alt={isRu ? room.nameRu : room.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     {isSelected && (
@@ -204,10 +211,10 @@ export const InteriorMatchPage: React.FC = () => {
 
                   <div>
                     <span className="text-xs font-serif font-bold text-slate-900 block truncate">
-                      {room.name}
+                      {isRu ? room.nameRu : room.name}
                     </span>
                     <span className="text-[10px] text-slate-500 block truncate">
-                      {room.nameRu}
+                      {room.style}
                     </span>
                   </div>
                 </button>
@@ -292,7 +299,7 @@ export const InteriorMatchPage: React.FC = () => {
                     {isRu ? (selectedArtwork.titleRu || selectedArtwork.title) : selectedArtwork.title}
                   </span>
                   <span className="text-[11px] text-sky-700 font-medium">
-                    {selectedArtwork.artistName} • {selectedArtwork.dimensions}
+                    {getLocalizedArtistName(selectedArtwork)} • {isRu ? (selectedArtwork.dimensionsRu || selectedArtwork.dimensions) : selectedArtwork.dimensions}
                   </span>
                 </div>
                 <div className="h-6 w-px bg-slate-200" />
@@ -446,7 +453,7 @@ export const InteriorMatchPage: React.FC = () => {
                   <h5 className="font-serif font-bold text-slate-900 text-xs truncate">
                     {isRu ? (art.titleRu || art.title) : art.title}
                   </h5>
-                  <p className="text-[10px] text-sky-700 truncate">{art.artistName}</p>
+                  <p className="text-[10px] text-sky-700 truncate">{getLocalizedArtistName(art)}</p>
                   <p className="text-xs font-bold text-slate-900 mt-1">
                     ${art.price.toLocaleString()}
                   </p>

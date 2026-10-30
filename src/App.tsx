@@ -54,8 +54,10 @@ export function App() {
           {/* Welcome Intro Splash: Canvas, Palette & Brush with Studio Logo */}
           <WelcomeSplash />
 
-          {/* Fixed Ambient Artistic Palette Background with Breathing Animation */}
+          {/* Fixed Ambient Artistic Palette & Juicy Color-Shifting Background (4s cycle) */}
           <div className="palette-ambient-container" aria-hidden="true">
+            <div className="palette-juicy-base" />
+            <div className="palette-juicy-glow" />
             <div
               className="palette-ambient-image"
               style={{

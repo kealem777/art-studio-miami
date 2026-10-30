@@ -153,27 +153,27 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-sm text-slate-400">
               <li>
                 <Link to="/interior-match?style=Modern" className="hover:text-sky-400 transition-colors">
-                  Modern / Contemporary
+                  {language === 'ru' ? 'Современный стиль (Модерн)' : 'Modern / Contemporary'}
                 </Link>
               </li>
               <li>
                 <Link to="/interior-match?style=Minimalism" className="hover:text-sky-400 transition-colors">
-                  Minimalism
+                  {language === 'ru' ? 'Минимализм' : 'Minimalism'}
                 </Link>
               </li>
               <li>
                 <Link to="/interior-match?style=Loft" className="hover:text-sky-400 transition-colors">
-                  Loft & Industrial
+                  {language === 'ru' ? 'Лофт и Индустриальный' : 'Loft & Industrial'}
                 </Link>
               </li>
               <li>
                 <Link to="/interior-match?style=Hi-Tech" className="hover:text-sky-400 transition-colors">
-                  Hi-Tech Smart Villa
+                  {language === 'ru' ? 'Хай-тек Смарт-вилла' : 'Hi-Tech Smart Villa'}
                 </Link>
               </li>
               <li>
                 <Link to="/interior-match?style=Neo-Classicism" className="hover:text-sky-400 transition-colors">
-                  Neo-Classicism
+                  {language === 'ru' ? 'Неоклассика' : 'Neo-Classicism'}
                 </Link>
               </li>
             </ul>

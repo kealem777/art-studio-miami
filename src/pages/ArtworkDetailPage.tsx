@@ -10,12 +10,20 @@ import {
   Share2,
   Check
 } from 'lucide-react';
-import { ARTWORKS_DATA } from '../data/mockData';
+import { ARTWORKS_DATA, ARTISTS_DATA } from '../data/mockData';
 import { ArtworkCard } from '../components/common/ArtworkCard';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import { CartItem } from '../types';
 import { getAssetUrl } from '../utils/assets';
+
+const STYLE_RU_MAP: Record<string, string> = {
+  'Modern': 'Модерн',
+  'Minimalism': 'Минимализм',
+  'Loft': 'Лофт',
+  'Hi-Tech': 'Хай-тек',
+  'Neo-Classicism': 'Неоклассика',
+};
 
 export const ArtworkDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,12 +55,15 @@ export const ArtworkDetailPage: React.FC = () => {
 
   const allImages = [artwork.imageUrl, ...(artwork.detailImages || [])];
   const activeImageSrc = getAssetUrl(allImages[activeImageIndex] || artwork.imageUrl);
-  const displayTitle = language === 'ru' ? (artwork.titleRu || artwork.title) : artwork.title;
+  const displayTitle = isRu ? (artwork.titleRu || artwork.title) : artwork.title;
+  const artistObj = ARTISTS_DATA.find((a) => a.slug === artwork.artistSlug || a.id === artwork.artistId);
+  const displayArtistName = isRu && artistObj?.nameRu ? artistObj.nameRu : artwork.artistName;
+  const displayStyle = isRu ? (STYLE_RU_MAP[artwork.style] || artwork.style) : artwork.style;
 
   const handleShare = () => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(window.location.href);
-      showToast(language === 'ru' ? 'Ссылка на картину скопирована' : 'Artwork link copied to clipboard');
+      showToast(isRu ? 'Ссылка на картину скопирована' : 'Artwork link copied to clipboard');
     }
   };
 
@@ -62,7 +73,7 @@ export const ArtworkDetailPage: React.FC = () => {
   ).slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50/70 via-white to-sky-50/40 text-slate-800 pb-24">
+    <div className="min-h-screen bg-transparent text-slate-800 pb-24">
       {/* Navigation Breadcrumb */}
       <div className="max-w-7xl mx-auto px-6 pt-8 pb-4">
         <div className="flex items-center justify-between">
@@ -178,13 +189,13 @@ export const ArtworkDetailPage: React.FC = () => {
               {/* Style & Favorite header */}
               <div className="flex items-center justify-between">
                 <span className="px-3.5 py-1.5 rounded-full bg-sky-100 text-sky-900 text-xs uppercase tracking-wider font-black border border-sky-300">
-                  {artwork.style}
+                  {displayStyle}
                 </span>
 
                 <button
                   onClick={() => toggleFavorite(artwork.id)}
                   className="p-2.5 rounded-2xl hover:bg-rose-50 text-slate-400 hover:text-rose-500 border border-sky-100 transition-colors"
-                  title="Favorite"
+                  title={isRu ? 'В избранное' : 'Favorite'}
                 >
                   <Heart
                     className={`w-5 h-5 ${
@@ -209,15 +220,15 @@ export const ArtworkDetailPage: React.FC = () => {
                 >
                   <img
                     src={artwork.artistAvatar}
-                    alt={artwork.artistName}
+                    alt={displayArtistName}
                     className="w-11 h-11 rounded-full object-cover border-2 border-white shadow-md"
                   />
                   <div>
                     <span className="text-[10px] text-slate-400 block uppercase tracking-wider font-bold">
-                      {language === 'ru' ? 'Автор произведения' : 'Resident Master'}
+                      {isRu ? 'Автор произведения' : 'Resident Master'}
                     </span>
                     <span className="font-serif font-black text-slate-950 text-sm">
-                      {artwork.artistName}
+                      {displayArtistName}
                     </span>
                   </div>
                 </Link>

@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useLanguage } from '../../context/LanguageContext';
+import { ARTISTS_DATA } from '../../data/mockData';
 import { getAssetUrl } from '../../utils/assets';
 
 export const CartDrawer: React.FC = () => {
@@ -173,8 +174,14 @@ export const CartDrawer: React.FC = () => {
                               <Trash2 className="w-4 h-4" />
                             </button>
                           </div>
-                          <p className="text-xs text-sky-700 font-medium">{item.artwork.artistName}</p>
-                          <p className="text-[11px] text-slate-500">{item.artwork.dimensions}</p>
+                          <p className="text-xs text-sky-700 font-medium">
+                            {isRu
+                              ? (ARTISTS_DATA.find((a) => a.slug === item.artwork.artistSlug)?.nameRu || item.artwork.artistName)
+                              : item.artwork.artistName}
+                          </p>
+                          <p className="text-[11px] text-slate-500">
+                            {isRu ? (item.artwork.dimensionsRu || item.artwork.dimensions) : item.artwork.dimensions}
+                          </p>
                         </div>
 
                         <div className="flex items-center justify-between pt-2">

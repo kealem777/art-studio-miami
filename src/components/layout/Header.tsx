@@ -294,7 +294,7 @@ export const Header: React.FC = () => {
             {/* Mobile Language Switcher */}
             <div className="py-3 flex items-center justify-between border-b border-sky-50">
               <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
-                Language / Язык:
+                {language === 'ru' ? 'Язык сайта:' : 'Language:'}
               </span>
               <div className="flex items-center bg-sky-50 p-1 rounded-xl border-2 border-sky-200">
                 <button
@@ -303,7 +303,7 @@ export const Header: React.FC = () => {
                     language === 'en' ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md' : 'text-slate-700'
                   }`}
                 >
-                  🇺🇸 English
+                  🇺🇸 EN
                 </button>
                 <button
                   onClick={() => setLanguage('ru')}
@@ -311,7 +311,7 @@ export const Header: React.FC = () => {
                     language === 'ru' ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md' : 'text-slate-700'
                   }`}
                 >
-                  🇷🇺 Русский
+                  🇷🇺 RU
                 </button>
               </div>
             </div>
@@ -331,7 +331,7 @@ export const Header: React.FC = () => {
                 rel="noreferrer"
                 className="flex items-center justify-center gap-2 p-3 rounded-2xl bg-[#25D366] text-white text-xs font-extrabold shadow-md shadow-[#25D366]/30"
               >
-                <span>WhatsApp Chat</span>
+                <span>{language === 'ru' ? 'Чат в WhatsApp' : 'WhatsApp Chat'}</span>
               </a>
             </div>
 
