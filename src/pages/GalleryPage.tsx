@@ -117,7 +117,7 @@ export const GalleryPage: React.FC = () => {
         {/* Quick Style Pills */}
         <div className="flex items-center gap-2 pt-6 overflow-x-auto pb-2 scrollbar-none">
           <span className="text-xs font-black text-slate-400 uppercase tracking-wider mr-2 hidden sm:inline">
-            Style:
+            {language === 'ru' ? 'Стиль:' : 'Style:'}
           </span>
           {styleOptions.map((st) => (
             <button
@@ -157,7 +157,7 @@ export const GalleryPage: React.FC = () => {
               <div className="flex items-center justify-between pb-4 border-b border-sky-100">
                 <span className="font-serif font-black text-slate-950 text-base flex items-center gap-2">
                   <Filter className="w-4 h-4 text-sky-600" />
-                  Filter Works
+                  {language === 'ru' ? 'Фильтры каталога' : 'Filter Works'}
                 </span>
                 <button
                   onClick={resetAllFilters}

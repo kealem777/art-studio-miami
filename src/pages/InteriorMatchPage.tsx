@@ -31,6 +31,7 @@ export const InteriorMatchPage: React.FC = () => {
 
   const { addToCart, showToast } = useCart();
   const { language, t } = useLanguage();
+  const isRu = language === 'ru';
 
   // Selected Room & Custom Room
   const [selectedRoom, setSelectedRoom] = useState<InteriorRoom>(() => {
@@ -122,13 +123,13 @@ export const InteriorMatchPage: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100/80 border border-sky-200 text-sky-800 text-xs font-semibold mb-3">
               <Compass className="w-4 h-4 text-sky-600 animate-spin-slow" />
-              Интерактивный 3D-модуль подбора искусства
+              {t('virtualRoomTag')}
             </div>
             <h1 className="text-3xl md:text-5xl font-serif font-bold text-slate-950 tracking-tight mb-2">
-              Виртуальная примерка в интерьере
+              {t('virtualRoomTitle')}
             </h1>
             <p className="text-sm md:text-base text-slate-600 max-w-2xl leading-relaxed">
-              Оцените масштаб, гармонию палитры и освещение перед покупкой. Выберите один из 5 стилей интерьера Майами или загрузите фото собственного дома.
+              {t('virtualRoomDesc')}
             </p>
           </div>
 
@@ -138,7 +139,7 @@ export const InteriorMatchPage: React.FC = () => {
               className="px-4 py-2.5 rounded-xl border border-sky-200 hover:bg-sky-50 text-slate-700 text-xs font-semibold flex items-center gap-2 transition-colors shadow-sm"
             >
               <RotateCcw className="w-4 h-4 text-slate-500" />
-              <span>Сбросить настройки</span>
+              <span>{t('resetSettings')}</span>
             </button>
 
             <button
@@ -146,7 +147,7 @@ export const InteriorMatchPage: React.FC = () => {
               className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-semibold flex items-center gap-2 shadow-lg shadow-sky-500/20 transition-all"
             >
               <ShoppingBag className="w-4 h-4" />
-              <span>Купить эту картину</span>
+              <span>{t('buyThisArtwork')}</span>
             </button>
           </div>
         </div>
@@ -156,13 +157,13 @@ export const InteriorMatchPage: React.FC = () => {
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs uppercase tracking-wider font-bold text-slate-500 flex items-center gap-2">
               <Layers className="w-4 h-4 text-sky-600" />
-              Шаг 1: Выберите стиль интерьера
+              {t('step1SelectStyle')}
             </span>
 
             {/* Custom Room Upload Button */}
             <label className="cursor-pointer inline-flex items-center gap-1.5 text-xs text-sky-700 hover:text-sky-900 font-semibold bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-lg border border-sky-200 transition-colors">
               <Upload className="w-3.5 h-3.5" />
-              <span>{customRoomImage ? 'Сменить фото комнаты' : 'Загрузить фото своей комнаты'}</span>
+              <span>{customRoomImage ? t('changeOwnRoom') : t('uploadOwnRoom')}</span>
               <input
                 type="file"
                 accept="image/*"
@@ -260,12 +261,12 @@ export const InteriorMatchPage: React.FC = () => {
                 top: `${position.y}%`,
                 transform: `translate(-50%, -50%) scale(${scale})`,
               }}
-              title="Зажмите и перетаскивайте картину по стене"
+              title={t('dragHint')}
             >
               <div className="relative bg-white shadow-2xl">
                 <img
                   src={getAssetUrl(selectedArtwork.imageUrl)}
-                  alt={selectedArtwork.title}
+                  alt={isRu ? (selectedArtwork.titleRu || selectedArtwork.title) : selectedArtwork.title}
                   className="max-h-[220px] sm:max-h-[300px] md:max-h-[360px] w-auto object-contain block pointer-events-none"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = getAssetUrl('covers/cover1.jpg');
@@ -278,7 +279,7 @@ export const InteriorMatchPage: React.FC = () => {
                 {/* Drag Indicator Tooltip on hover */}
                 <div className="absolute top-2 right-2 p-1 rounded-md bg-black/60 text-white text-[10px] opacity-0 hover:opacity-100 transition-opacity flex items-center gap-1">
                   <Move className="w-3 h-3" />
-                  <span>Перетаскивайте</span>
+                  <span>{t('dragLabel')}</span>
                 </div>
               </div>
             </div>
@@ -288,7 +289,7 @@ export const InteriorMatchPage: React.FC = () => {
               <div className="bg-white/90 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-lg border border-sky-100 flex items-center gap-3 pointer-events-auto">
                 <div className="text-xs">
                   <span className="font-serif font-bold text-slate-900 block">
-                    {selectedArtwork.title}
+                    {isRu ? (selectedArtwork.titleRu || selectedArtwork.title) : selectedArtwork.title}
                   </span>
                   <span className="text-[11px] text-sky-700 font-medium">
                     {selectedArtwork.artistName} • {selectedArtwork.dimensions}
@@ -311,7 +312,7 @@ export const InteriorMatchPage: React.FC = () => {
                   }`}
                 >
                   <Sun className="w-3.5 h-3.5" />
-                  <span>День</span>
+                  <span>{t('daylightMode')}</span>
                 </button>
                 <button
                   onClick={() => setLightingMode('evening')}
@@ -322,7 +323,7 @@ export const InteriorMatchPage: React.FC = () => {
                   }`}
                 >
                   <Moon className="w-3.5 h-3.5" />
-                  <span>Вечерний свет</span>
+                  <span>{t('eveningMode')}</span>
                 </button>
               </div>
             </div>
@@ -334,7 +335,7 @@ export const InteriorMatchPage: React.FC = () => {
             <div className="w-full md:w-1/3 flex items-center gap-4">
               <span className="text-xs font-bold text-slate-600 uppercase tracking-wider whitespace-nowrap flex items-center gap-1.5">
                 <Sliders className="w-4 h-4 text-sky-600" />
-                Масштаб:
+                {t('scaleLabel')}
               </span>
               <input
                 type="range"
@@ -353,15 +354,15 @@ export const InteriorMatchPage: React.FC = () => {
             {/* Frame Type Selector */}
             <div className="w-full md:w-auto flex flex-wrap items-center gap-2">
               <span className="text-xs font-bold text-slate-600 uppercase tracking-wider mr-2">
-                Багет / Рама:
+                {t('frameLabel')}
               </span>
 
               {[
-                { id: 'none', label: 'Без рамы (Холст)' },
-                { id: 'thin-black', label: 'Черный металл' },
-                { id: 'gold-brass', label: 'Шампань-золото' },
-                { id: 'natural-oak', label: 'Дуб' },
-                { id: 'white-wood', label: 'Белый багет' },
+                { id: 'none', label: t('frameNone') },
+                { id: 'thin-black', label: t('frameBlack') },
+                { id: 'gold-brass', label: t('frameGold') },
+                { id: 'natural-oak', label: t('frameOak') },
+                { id: 'white-wood', label: t('frameWhite') },
               ].map((frame) => (
                 <button
                   key={frame.id}
@@ -383,7 +384,7 @@ export const InteriorMatchPage: React.FC = () => {
               className="w-full md:w-auto px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-sky-600 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-md"
             >
               <ShoppingBag className="w-4 h-4" />
-              <span>Заказать это полотно (${selectedArtwork.price.toLocaleString()})</span>
+              <span>{t('orderThisCanvas')} (${selectedArtwork.price.toLocaleString()})</span>
             </button>
           </div>
         </div>
@@ -394,10 +395,10 @@ export const InteriorMatchPage: React.FC = () => {
         <div className="flex items-center justify-between mb-4">
           <div>
             <h3 className="text-xl font-serif font-bold text-slate-900">
-              Шаг 2: Выберите картину для примерки
+              {t('step2SelectArtwork')}
             </h3>
             <p className="text-xs text-slate-500">
-              Нажмите на любое полотно из каталога, чтобы мгновенно увидеть его на стене комнаты
+              {t('step2SelectArtworkDesc')}
             </p>
           </div>
 
@@ -405,8 +406,7 @@ export const InteriorMatchPage: React.FC = () => {
             to="/gallery"
             className="text-xs font-semibold text-sky-600 hover:text-sky-800 flex items-center gap-1"
           >
-            <span>Весь каталог (12 полотен)</span>
-            <span>→</span>
+            <span>{t('fullCatalogCount')}</span>
           </Link>
         </div>
 
@@ -427,7 +427,7 @@ export const InteriorMatchPage: React.FC = () => {
                 <div className="w-full aspect-[4/5] rounded-xl overflow-hidden mb-2 relative bg-sky-50">
                   <img
                     src={getAssetUrl(art.imageUrl)}
-                    alt={art.title}
+                    alt={isRu ? (art.titleRu || art.title) : art.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = getAssetUrl('covers/cover1.jpg');
@@ -436,7 +436,7 @@ export const InteriorMatchPage: React.FC = () => {
                   {isCurrent && (
                     <div className="absolute inset-0 bg-sky-600/20 backdrop-blur-[1px] flex items-center justify-center">
                       <span className="px-2 py-1 rounded-full bg-sky-600 text-white text-[10px] font-bold shadow-md">
-                        На стене
+                        {t('onWallBadge')}
                       </span>
                     </div>
                   )}
@@ -444,7 +444,7 @@ export const InteriorMatchPage: React.FC = () => {
 
                 <div>
                   <h5 className="font-serif font-bold text-slate-900 text-xs truncate">
-                    {art.title}
+                    {isRu ? (art.titleRu || art.title) : art.title}
                   </h5>
                   <p className="text-[10px] text-sky-700 truncate">{art.artistName}</p>
                   <p className="text-xs font-bold text-slate-900 mt-1">

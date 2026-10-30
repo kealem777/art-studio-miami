@@ -139,6 +139,7 @@ export const translations: Translations = {
   relatedArtworksHeading: { en: 'Similar Artworks from the Collection', ru: 'Похожие произведения из коллекции' },
 
   // Interior Match Page
+  virtualRoomTag: { en: 'Interactive 3D Art Matching Module', ru: 'Интерактивный 3D-модуль подбора искусства' },
   virtualRoomTitle: { en: 'Virtual 3D Room Matcher', ru: 'Виртуальная примерка в интерьере' },
   virtualRoomDesc: { 
     en: 'Assess scale, color temperature balance, and ambient lighting before acquisition. Choose from 5 iconic Miami architectural styles or upload your own room photograph.', 
@@ -149,10 +150,20 @@ export const translations: Translations = {
   step1SelectStyle: { en: 'Step 1: Choose Interior Style', ru: 'Шаг 1: Выберите стиль интерьера' },
   uploadOwnRoom: { en: 'Upload Photo of Your Room', ru: 'Загрузить фото своей комнаты' },
   changeOwnRoom: { en: 'Change Room Photo', ru: 'Сменить фото комнаты' },
+  dragHint: { en: 'Drag to reposition canvas on wall', ru: 'Зажмите и перетаскивайте картину по стене' },
+  dragLabel: { en: 'Drag', ru: 'Перетаскивайте' },
+  onWallBadge: { en: 'On Wall', ru: 'На стене' },
   daylightMode: { en: 'Daylight', ru: 'День' },
   eveningMode: { en: 'Evening Spotlight', ru: 'Вечерний свет' },
   scaleLabel: { en: 'Scale:', ru: 'Масштаб:' },
+  frameLabel: { en: 'Floater Frame / Moulding:', ru: 'Багет / Рама:' },
+  orderThisCanvas: { en: 'Order This Original', ru: 'Заказать это полотно' },
   step2SelectArtwork: { en: 'Step 2: Choose Artwork to Fit on the Wall', ru: 'Шаг 2: Выберите картину для примерки' },
+  step2SelectArtworkDesc: { 
+    en: 'Click on any painting from the catalog to instantly preview it on your wall', 
+    ru: 'Нажмите на любое полотно из каталога, чтобы мгновенно увидеть его на стене комнаты' 
+  },
+  fullCatalogCount: { en: 'Full Catalog (12 originals) →', ru: 'Весь каталог (12 полотен) →' },
 
   // Footer & Clubs
   collectorsClubTag: { en: 'Miami Private Collectors Circle', ru: 'Закрытый клуб коллекционеров Майами' },

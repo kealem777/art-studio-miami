@@ -5,6 +5,7 @@ import { CartProvider, useCart } from './context/CartContext';
 import { getAssetUrl } from './utils/assets';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
+import { WelcomeSplash } from './components/common/WelcomeSplash';
 import { CartDrawer } from './components/common/CartDrawer';
 import { QuickViewModal } from './components/common/QuickViewModal';
 import { HomePage } from './pages/HomePage';
@@ -50,6 +51,9 @@ export function App() {
       <LanguageProvider>
         <CartProvider>
           <ScrollToTop />
+          {/* Welcome Intro Splash: Canvas, Palette & Brush with Studio Logo */}
+          <WelcomeSplash />
+
           {/* Fixed Ambient Artistic Palette Background with Breathing Animation */}
           <div className="palette-ambient-container" aria-hidden="true">
             <div
