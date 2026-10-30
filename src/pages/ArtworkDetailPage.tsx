@@ -22,6 +22,7 @@ export const ArtworkDetailPage: React.FC = () => {
   const navigate = useNavigate();
   const { addToCart, toggleFavorite, isFavorite, showToast } = useCart();
   const { language, t } = useLanguage();
+  const isRu = language === 'ru';
 
   const artwork = ARTWORKS_DATA.find((a) => a.id === id);
 
@@ -199,7 +200,7 @@ export const ArtworkDetailPage: React.FC = () => {
                   {displayTitle}
                 </h1>
                 <p className="text-xs text-sky-700 uppercase tracking-widest font-black mb-4">
-                  {artwork.dimensions} • {artwork.medium}
+                  {isRu && artwork.dimensionsRu ? artwork.dimensionsRu : artwork.dimensions} • {isRu && artwork.mediumRu ? artwork.mediumRu : artwork.medium}
                 </p>
 
                 <Link
@@ -244,11 +245,15 @@ export const ArtworkDetailPage: React.FC = () => {
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
                   <span className="text-slate-400 block mb-0.5 font-medium">{t('specsDimensions')}</span>
-                  <strong className="text-slate-900 font-bold">{artwork.dimensions}</strong>
+                  <strong className="text-slate-900 font-bold">
+                    {isRu && artwork.dimensionsRu ? artwork.dimensionsRu : artwork.dimensions}
+                  </strong>
                 </div>
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
                   <span className="text-slate-400 block mb-0.5 font-medium">{t('specsMedium')}</span>
-                  <strong className="text-slate-900 font-bold">{artwork.medium}</strong>
+                  <strong className="text-slate-900 font-bold">
+                    {isRu && artwork.mediumRu ? artwork.mediumRu : artwork.medium}
+                  </strong>
                 </div>
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
                   <span className="text-slate-400 block mb-0.5 font-medium">{t('specsYear')}</span>
@@ -293,8 +298,8 @@ export const ArtworkDetailPage: React.FC = () => {
                 <span className="text-xs font-black text-slate-800 block mb-1 uppercase tracking-wider">
                   {t('aboutArtworkHeading')}
                 </span>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {artwork.description}
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                  {isRu ? (artwork.descriptionRu || artwork.description) : artwork.description}
                 </p>
               </div>
 

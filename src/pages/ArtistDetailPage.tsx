@@ -88,10 +88,10 @@ export const ArtistDetailPage: React.FC = () => {
                   {isRu ? 'Резидент Miami Art Studio' : 'Miami Art Studio Resident'}
                 </div>
                 <h1 className="text-3xl md:text-5xl font-serif font-bold tracking-tight">
-                  {artist.name}
+                  {isRu ? (artist.nameRu || artist.name) : artist.name}
                 </h1>
                 <p className="text-sky-200 text-sm md:text-base font-medium mt-1">
-                  {artist.title}
+                  {isRu ? (artist.titleRu || artist.title) : artist.title}
                 </p>
               </div>
             </div>
@@ -119,10 +119,10 @@ export const ArtistDetailPage: React.FC = () => {
                 {isRu ? 'Художественный манифест и биография' : 'Artist Statement & Biography'}
               </h3>
               <blockquote className="p-4 rounded-2xl bg-sky-50/60 border border-sky-100 text-sky-900 font-serif italic text-base leading-relaxed">
-                {artist.quote}
+                {isRu ? (artist.quoteRu || artist.quote) : artist.quote}
               </blockquote>
               <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-line font-medium">
-                {artist.bio}
+                {isRu ? (artist.bioRu || artist.bio) : artist.bio}
               </p>
             </div>
 
@@ -133,7 +133,7 @@ export const ArtistDetailPage: React.FC = () => {
                 {isRu ? 'Избранные выставки & Экспозиции' : 'Selected Exhibitions & Art Fairs'}
               </h3>
               <ul className="space-y-3 pt-2">
-                {artist.exhibitions.map((ex, i) => (
+                {(isRu && artist.exhibitionsRu ? artist.exhibitionsRu : artist.exhibitions).map((ex, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
                     <span className="w-2 h-2 rounded-full bg-sky-500 mt-2 flex-shrink-0" />
                     <span>{ex}</span>
@@ -157,7 +157,9 @@ export const ArtistDetailPage: React.FC = () => {
                     <span className="text-slate-400 block mb-0.5">
                       {isRu ? 'Образование:' : 'Education:'}
                     </span>
-                    <span className="font-semibold text-slate-800">{artist.education}</span>
+                    <span className="font-semibold text-slate-800">
+                      {isRu ? (artist.educationRu || artist.education) : artist.education}
+                    </span>
                   </div>
                 </div>
 
@@ -168,7 +170,7 @@ export const ArtistDetailPage: React.FC = () => {
                       {isRu ? 'Награды & Призы:' : 'Honors & Distinctions:'}
                     </span>
                     <ul className="space-y-1 text-slate-700 font-medium">
-                      {artist.awards.map((aw, i) => (
+                      {(isRu && artist.awardsRu ? artist.awardsRu : artist.awards).map((aw, i) => (
                         <li key={i}>• {aw}</li>
                       ))}
                     </ul>

@@ -77,18 +77,20 @@ export const ArtistsPage: React.FC = () => {
                       to={`/artists/${artist.slug}`}
                       className="font-serif font-bold text-slate-950 text-xl group-hover:text-sky-600 transition-colors inline-block"
                     >
-                      {artist.name}
+                      {isRu ? (artist.nameRu || artist.name) : artist.name}
                     </Link>
-                    <p className="text-xs text-sky-700 font-semibold">{artist.title}</p>
+                    <p className="text-xs text-sky-700 font-semibold">
+                      {isRu ? (artist.titleRu || artist.title) : artist.title}
+                    </p>
                   </div>
 
                   <p className="text-xs text-slate-600 leading-relaxed line-clamp-3 font-medium">
-                    {artist.bio}
+                    {isRu ? (artist.bioRu || artist.bio) : artist.bio}
                   </p>
 
                   {/* Quote preview */}
                   <div className="p-3 rounded-2xl bg-sky-50/50 border border-sky-100/80 text-[11px] text-slate-500 italic">
-                    {artist.quote}
+                    {isRu ? (artist.quoteRu || artist.quote) : artist.quote}
                   </div>
                 </div>
               </div>
@@ -97,7 +99,9 @@ export const ArtistsPage: React.FC = () => {
               <div className="p-6 pt-5 mt-4 border-t border-sky-50 flex items-center justify-between">
                 <div className="text-xs text-slate-500 flex items-center gap-1.5">
                   <Award className="w-4 h-4 text-amber-500" />
-                  <span className="truncate max-w-[170px]">{artist.awards[0]}</span>
+                  <span className="truncate max-w-[170px]">
+                    {isRu && artist.awardsRu ? artist.awardsRu[0] : artist.awards[0]}
+                  </span>
                 </div>
 
                 <Link

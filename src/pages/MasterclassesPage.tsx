@@ -113,7 +113,7 @@ export const MasterclassesPage: React.FC = () => {
                   />
                   <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
                     <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-sky-800 text-xs font-bold shadow-md">
-                      {item.level}
+                      {isRu ? (item.levelRu || item.level) : item.level}
                     </span>
                     <span className="px-3 py-1 rounded-full bg-slate-900/90 text-white text-xs font-bold shadow-md">
                       ${item.price} USD
@@ -125,24 +125,30 @@ export const MasterclassesPage: React.FC = () => {
                 <div className="p-6 md:p-8 space-y-4">
                   <div>
                     <h3 className="font-serif font-bold text-slate-900 text-xl mb-1">
-                      {item.title}
+                      {isRu ? (item.titleRu || item.title) : item.title}
                     </h3>
-                    <p className="text-xs text-sky-700 font-semibold">{item.subtitle}</p>
+                    <p className="text-xs text-sky-700 font-semibold">
+                      {isRu ? (item.subtitleRu || item.subtitle) : item.subtitle}
+                    </p>
                   </div>
 
                   <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                    {item.description}
+                    {isRu ? (item.descriptionRu || item.description) : item.description}
                   </p>
 
                   {/* Highlights Grid */}
                   <div className="grid grid-cols-2 gap-3 pt-2 text-xs">
                     <div className="flex items-center gap-2 p-2.5 rounded-xl bg-sky-50/60 border border-sky-100">
                       <Clock className="w-4 h-4 text-sky-600" />
-                      <span className="text-slate-700 font-medium">{item.duration}</span>
+                      <span className="text-slate-700 font-medium">
+                        {isRu ? (item.durationRu || item.duration) : item.duration}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2 p-2.5 rounded-xl bg-sky-50/60 border border-sky-100">
                       <Users className="w-4 h-4 text-sky-600" />
-                      <span className="text-slate-700 font-medium">{item.capacity}</span>
+                      <span className="text-slate-700 font-medium">
+                        {isRu ? (item.capacityRu || item.capacity) : item.capacity}
+                      </span>
                     </div>
                   </div>
 
@@ -152,7 +158,7 @@ export const MasterclassesPage: React.FC = () => {
                       {isRu ? 'В стоимость входит:' : 'Included in Experience:'}
                     </span>
                     <ul className="space-y-1.5 text-xs text-slate-600 font-medium">
-                      {item.includes.map((inc, i) => (
+                      {(isRu && item.includesRu ? item.includesRu : item.includes).map((inc, i) => (
                         <li key={i} className="flex items-start gap-2">
                           <Check className="w-3.5 h-3.5 text-sky-600 mt-0.5 flex-shrink-0" />
                           <span>{inc}</span>
@@ -169,7 +175,9 @@ export const MasterclassesPage: React.FC = () => {
                   <span className="block text-[10px] text-slate-400">
                     {isRu ? 'Ближайшие даты:' : 'Available Dates:'}
                   </span>
-                  <span className="font-semibold text-slate-800">{item.schedule}</span>
+                  <span className="font-semibold text-slate-800">
+                    {isRu ? (item.scheduleRu || item.schedule) : item.schedule}
+                  </span>
                 </div>
 
                 <button
@@ -230,7 +238,7 @@ export const MasterclassesPage: React.FC = () => {
                     {isRu ? 'Бронирование занятия' : 'Masterclass Reservation'}
                   </span>
                   <h3 className="text-xl font-serif font-bold text-slate-900">
-                    {bookingModalClass.title}
+                    {isRu ? (bookingModalClass.titleRu || bookingModalClass.title) : bookingModalClass.title}
                   </h3>
                   <p className="text-xs text-slate-500 font-medium">
                     {isRu 
